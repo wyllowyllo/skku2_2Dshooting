@@ -5,10 +5,12 @@ using UnityEngine;
 {
     public static BoardBounds Instance;
 
+    [SerializeField] private Transform _playerTransform;
     private float _boardLeftX;
     private float _boardRightX;
     private float _boardTopY;
     private float _boardBottomY;
+
 
     public float BoardLeftX { get => _boardLeftX; }
     public float BoardRightX { get => _boardRightX;  }
@@ -37,7 +39,30 @@ using UnityEngine;
 
     public Vector2 MoveClamp(Vector2 newPosition)
     {
-        return new Vector2(Mathf.Clamp(newPosition.x, _boardLeftX, _boardRightX),
+
+        //움직임 범위 제한
+
+        /*
+          return new Vector2(Mathf.Clamp(newPosition.x, _boardLeftX, _boardRightX),
             Mathf.Clamp(newPosition.y, _boardBottomY, _boardTopY));
+        */
+
+        //바운더리 넘을 경우 반대 위치로 reposition
+
+        Vector2 modifiedPos = newPosition;
+        if(_boardLeftX-_playerTransform.localScale.x/2> newPosition.x)
+        {
+            modifiedPos.x = _boardRightX + _playerTransform.transform.localScale.x/2;
+        }
+        else if(_boardRightX+_playerTransform.localScale.x/2< newPosition.x)
+        {
+            modifiedPos.x = _boardLeftX - _playerTransform.localScale.x/2;
+        }
+
+        modifiedPos.y = Mathf.Clamp(newPosition.y, _boardBottomY + _playerTransform.localScale.y / 2, _boardTopY- _playerTransform.localScale.y / 2);
+       
+        return modifiedPos;
     }
+
+    
 }
