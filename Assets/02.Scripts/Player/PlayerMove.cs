@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-
-
-
+using UnityEngine.Rendering;
 public class PlayerMove : MonoBehaviour
 {
 
@@ -19,9 +17,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _maxSpeed = 10;
     [SerializeField] private float _minSpeed = 1;
 
+
+    private Vector2 originPos = Vector2.zero;
+
     private void Start()
     {
-
+        originPos = transform.position;
 
     }
     private void Update()
@@ -39,8 +40,8 @@ public class PlayerMove : MonoBehaviour
  */
         float h = Input.GetAxisRaw("Horizontal"); //수평 입력에 대한 값을 -1,0,1 로  가져온다
         float v = Input.GetAxisRaw("Vertical");//수직 입력에 대한 값을 -1,0,1 로  가져온다
-
-       
+        bool r= Input.GetKey(KeyCode.R);
+        bool onDash = Input.GetKey(KeyCode.LeftShift);
 
         //2. 입력으로부터 방향을 구한다
         Vector2 direction = new Vector2(h, v);
@@ -67,21 +68,40 @@ public class PlayerMove : MonoBehaviour
 
         //tip) 코딩 규칙 - -1,0,1 이 세개 빼고는 다 매직 넘버이므로 숫자 그대로 쓰지 말고 따로 변수로 빼야 한다.
 
-        Vector2 newPosition = position + direction * _speed * Time.deltaTime; //새로운 위치
+        float additionalSpeed = onDash ? 2f : 1f;
+
+        Vector2 newPosition = position + direction * _speed*additionalSpeed * Time.deltaTime; //새로운 위치
         newPosition = BoardBounds.Instance.MoveClamp(newPosition);
-        transform.position = newPosition;
+        
+
+        //원점으로 이동
+        if (r)
+        {
+     
+            Vector2 dirVec= (originPos - newPosition).normalized;
+            transform.Translate(dirVec* _speed*Time.deltaTime);
+
+        }
+        else
+            transform.position = newPosition;
     }
     void ModifySpeed()
     {
         bool speedUp=Input.GetKeyDown(KeyCode.Q);
         bool speedDown=Input.GetKeyDown(KeyCode.E);
+      
+
 
         if (speedUp)
-            _speed += 0.1f;
+            _speed++;
             
         if (speedDown)
-            _speed -= 0.1f;
+            _speed --;
 
-        _speed=Mathf.Clamp(_speed, _minSpeed, _maxSpeed);
+      
+
+        _speed =Mathf.Clamp(_speed, _minSpeed, _maxSpeed);
     }
+
+    
 }
