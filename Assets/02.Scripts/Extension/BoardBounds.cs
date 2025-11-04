@@ -48,11 +48,7 @@ using UnityEngine;
 
         //움직임 범위 제한
 
-        /*
-          return new Vector2(Mathf.Clamp(newPosition.x, _boardLeftX, _boardRightX),
-            Mathf.Clamp(newPosition.y, _boardBottomY, _boardTopY));
-        */
-
+    
         //바운더리 넘을 경우 반대 위치로 reposition
 
         Vector2 modifiedPos = newPosition;

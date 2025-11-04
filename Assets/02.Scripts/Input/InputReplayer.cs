@@ -10,6 +10,9 @@ class InputReplayer : IInputSource
     private IReadOnlyList<InputEvent> _events;
     private int _currentEventIndex;
     private float _startTime;
+    private bool _isPlaying;
+
+
     public Vector2 MoveInput { get; private set; }
     public bool SpeedUp { get; private set; }
     public bool SpeedDown { get; private set; }
@@ -25,6 +28,8 @@ class InputReplayer : IInputSource
     {
         _currentEventIndex = 0;
         _startTime = Time.time;
+        _isPlaying= true;
+
         //초기 상태 설정
         if (_events.Count > 0 && _events[0].EventType == InputEventType.Move)
         {
@@ -34,6 +39,9 @@ class InputReplayer : IInputSource
     }
     public void Tick()
     {
+        if (!_isPlaying)
+            return;
+
         if (_currentEventIndex >= _events.Count)
             return;
         float elapsedTime = Time.time - _startTime;
@@ -61,6 +69,17 @@ class InputReplayer : IInputSource
             _currentEventIndex++;
         }
 
+        if (_currentEventIndex >= _events.Count)
+            FinishReplayIfNeeded();
+
+    }
+
+    private void FinishReplayIfNeeded()
+    {
+        if (!_isPlaying)
+            return;
+
+        _isPlaying = false;
         ReplayFinished?.Invoke();
     }
 }

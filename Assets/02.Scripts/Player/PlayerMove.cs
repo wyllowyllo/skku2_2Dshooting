@@ -166,13 +166,16 @@ public class PlayerMove : MonoBehaviour
         
         _isReplaying = true;
 
-        //transform.position = recordStartPos;
+        transform.position = recordStartPos;
 
         _inputReplayer = new InputReplayer(_inputRecorder.Events);
-        _inputReplayer.StartReplaying();
-        _input = _inputReplayer;
 
         _inputReplayer.ReplayFinished.AddListener(ReplayingFinished);
+        _inputReplayer.StartReplaying();
+
+        _input = _inputReplayer;
+
+        
     }
 
     private void ReplayingFinished()
