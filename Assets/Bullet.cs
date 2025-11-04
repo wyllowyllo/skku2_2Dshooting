@@ -3,17 +3,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("기본 스텟")]
-    [SerializeField] private float _bulletSpeed;
-    [SerializeField] private float _firstBulletSpeed = 1f;
-    [SerializeField] private float _lastBulletSpeed = 7f;
-    [SerializeField] private float _totalAccelTime = 1.2f;
-    
+    [SerializeField] protected float _bulletSpeed;
+    [SerializeField] protected float _firstBulletSpeed = 1f;
+    [SerializeField] protected float _lastBulletSpeed = 7f;
+    [SerializeField] protected float _totalAccelTime = 1.2f;
 
-    private void Start()
+
+    protected virtual void Start()
     {
         _bulletSpeed = _firstBulletSpeed;
     }
-    private void Update()
+    protected virtual void Update()
     {
         //방향을 구한다
         Vector2 direction= Vector2.up;

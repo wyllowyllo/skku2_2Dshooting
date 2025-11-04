@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 class InputReplayer : IInputSource
 {
-    public UnityEvent ReplayFinished;
+    public UnityEvent ReplayFinished=new UnityEvent();
 
     private IReadOnlyList<InputEvent> _events;
     private int _currentEventIndex;

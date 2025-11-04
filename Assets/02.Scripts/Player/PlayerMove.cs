@@ -18,7 +18,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _minSpeed = 1;
 
     [Header("시작위치")]
-    private Vector2 originPossition = Vector2.zero;
+    private Vector2 originPosition = Vector2.zero;
+    private Vector2 recordStartPos = Vector2.zero;
 
     [Header("플레이어 입력 처리 모듈")]
     private IInputSource _input=new InputController();
@@ -33,7 +34,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        originPossition = transform.position;
+        originPosition = transform.position;
 
     }
     private void Update()
@@ -139,7 +140,7 @@ public class PlayerMove : MonoBehaviour
 
     private void TranslateToOrigin(float speed)
     {
-        Vector2 dirVec = (originPossition - (Vector2)transform.position).normalized;
+        Vector2 dirVec = (originPosition - (Vector2)transform.position).normalized;
         transform.Translate(dirVec * speed * Time.deltaTime);
     }
 
@@ -153,6 +154,8 @@ public class PlayerMove : MonoBehaviour
         _input = new InputController();
         _inputRecorder = new InputRecorder(_input);
         _inputRecorder.StartRecording();
+
+        recordStartPos= transform.position;
     }
 
     public void StartReplaying()
@@ -162,6 +165,8 @@ public class PlayerMove : MonoBehaviour
 
         
         _isReplaying = true;
+
+        //transform.position = recordStartPos;
 
         _inputReplayer = new InputReplayer(_inputRecorder.Events);
         _inputReplayer.StartReplaying();
