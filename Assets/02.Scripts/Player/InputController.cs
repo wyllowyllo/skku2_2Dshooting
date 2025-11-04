@@ -4,21 +4,13 @@ using Input=UnityEngine.Input;
 
 public class InputController : IInputSource
 {
-    public float Horizontal
+   public Vector2 MoveInput
     {
         get
         {
             float h = Input.GetAxisRaw("Horizontal");
-            return h;
-        }
-    }
-
-    public float Vertical
-    {
-        get
-        {
             float v = Input.GetAxisRaw("Vertical");
-            return v;
+            return new Vector2(h, v).normalized;
         }
     }
 
@@ -26,7 +18,7 @@ public class InputController : IInputSource
 
     public bool SpeedDown => Input.GetKeyDown(KeyCode.E);
 
-    public bool Dasth => throw new System.NotImplementedException();
+    public bool Dash => Input.GetKey(KeyCode.LeftShift);
 
-    public bool ResetPosition => throw new System.NotImplementedException();
+    public bool ResetPosition => Input.GetKey(KeyCode.R);
 }

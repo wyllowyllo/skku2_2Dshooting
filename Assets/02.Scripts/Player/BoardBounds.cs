@@ -10,12 +10,16 @@ using UnityEngine;
     private float _boardRightX;
     private float _boardTopY;
     private float _boardBottomY;
+    private float _boardWidth;
+    private float _boardHeight;
 
 
     public float BoardLeftX { get => _boardLeftX; }
     public float BoardRightX { get => _boardRightX;  }
     public float BoardTopY { get => _boardTopY;  }
     public float BoardBottomY { get => _boardBottomY;}
+    public float BoardWidth { get => _boardWidth; }
+    public float BoardHeight { get => _boardHeight;}
 
     private void Awake()
     {
@@ -29,12 +33,14 @@ using UnityEngine;
         float cameraHeight = cam.orthographicSize * 2;
         float cameraWidth = cameraHeight * cam.aspect;
 
+        _boardHeight= cameraHeight;
+        _boardWidth= cameraWidth;
 
-        _boardLeftX = -cameraWidth / 2;
-        _boardRightX = cameraWidth / 2;
+        _boardLeftX = -_boardWidth / 2;
+        _boardRightX = _boardWidth / 2;
 
-        _boardBottomY = -cameraHeight / 2;
-        _boardTopY = _boardBottomY + (cameraHeight / 2);
+        _boardBottomY = -_boardHeight / 2;
+        _boardTopY = _boardBottomY + (_boardHeight / 2);
     }
 
     public Vector2 MoveClamp(Vector2 newPosition)

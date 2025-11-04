@@ -1,13 +1,15 @@
-﻿using Unity.Profiling;
-
+﻿using System.Numerics;
+using Unity.Profiling;
+using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 public interface IInputSource
 {
-    public float Horizontal { get; }
-    public float Vertical { get; }
+ 
 
+    public Vector2 MoveInput { get; }
 
     public bool SpeedUp { get; }
     public bool SpeedDown { get; }
-    public bool Dasth { get; }
+    public bool Dash { get; }
     public bool ResetPosition { get; }
 }
