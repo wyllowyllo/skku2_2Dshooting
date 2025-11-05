@@ -1,8 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
+
+public enum BulletType
+{
+    BT_NORMAL=1,
+    BT_MINI=2,
+    BT_S=3,
+    BT_CYCLON=4,
+}
 public class Bullet : MonoBehaviour
 {
-    [Header("±âº» ½ºÅİ")]
+    [Header("ê¸°ë³¸ ìŠ¤í…Ÿ")]
+    [SerializeField] private BulletType _bulletType;
+    [SerializeField] protected float _bulletDamage;
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] protected float _firstBulletSpeed = 1f;
     [SerializeField] protected float _lastBulletSpeed = 7f;
@@ -15,18 +25,35 @@ public class Bullet : MonoBehaviour
     }
     protected virtual void Update()
     {
-        //¹æÇâÀ» ±¸ÇÑ´Ù
-        Vector2 direction= Vector2.up;
+        BulletMove();
+        
+    }
 
-         float speedDelta= (_lastBulletSpeed - _firstBulletSpeed) / _totalAccelTime;
-         _bulletSpeed += speedDelta * Time.deltaTime;
-         _bulletSpeed = Mathf.Min(_bulletSpeed, _lastBulletSpeed);
+    protected virtual void BulletMove()
+    {
+        //ë°©í–¥ì„ êµ¬í•œë‹¤
+        Vector2 direction = Vector2.up;
 
-        //»õ·Î¿î À§Ä¡´Â = ÇöÀç À§Ä¡ + ¹æÇâ * ¼Ó·Â * ½Ã°£
+        float speedDelta = (_lastBulletSpeed - _firstBulletSpeed) / _totalAccelTime;
+        _bulletSpeed += speedDelta * Time.deltaTime;
+        _bulletSpeed = Mathf.Min(_bulletSpeed, _lastBulletSpeed);
+
+        //ìƒˆë¡œìš´ ìœ„ì¹˜ëŠ” = í˜„ì¬ ìœ„ì¹˜ + ë°©í–¥ * ì†ë ¥ * ì‹œê°„
         Vector2 position = transform.position;
-        Vector2 newPosition= position + direction * _bulletSpeed *Time.deltaTime;
+        Vector2 newPosition = position + direction * _bulletSpeed * Time.deltaTime;
         transform.position = newPosition;
 
-        //transform.Translate(Vector2.up * _bulletSpeed*Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Enemy")) return;
+
+        Enemy enemy = collision.GetComponent<Enemy>();
+
+        if(enemy!=null)
+            enemy.OnDamage(_bulletDamage);
+
+        Destroy(gameObject);
     }
 }

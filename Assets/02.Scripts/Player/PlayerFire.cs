@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public enum AttackMode
@@ -8,25 +8,29 @@ public enum AttackMode
 }
 public class PlayerFire : MonoBehaviour
 {
-    //¸ñÇ¥ : ½ºÆäÀÌ½º¹Ù¸¦ ´©¸£¸é ÃÑ¾ËÀ» ¸¸µé¾î¼­ ¹ß»çÇÏ°í ½Í´Ù
-    [Header("°ø°İ ¸ğµå")]
+    //ëª©í‘œ : ìŠ¤í˜ì´ìŠ¤ë°”ë¥¼ ëˆ„ë¥´ë©´ ì´ì•Œì„ ë§Œë“¤ì–´ì„œ ë°œì‚¬í•˜ê³  ì‹¶ë‹¤
+    [Header("ê³µê²© ëª¨ë“œ")]
     private AttackMode _attackMode = AttackMode.ATK_AUTO;
-    //ÇÊ¿ä ¼Ó¼º
-    [Header("ÃÑ¾Ë ÇÁ¸®Æé")]
+
+    //í•„ìš” ì†ì„±
+    [Header("ì´ì•Œ í”„ë¦¬í©")]
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _miniBulletPrefab;
 
-    [Header("ÃÑ±¸")]
+    [Header("ì´êµ¬")]
     [SerializeField] private Transform _firePositionL;
     [SerializeField] private Transform _firePositionR;
     [SerializeField] private Transform _firePositionSubL;
     [SerializeField] private Transform _firePositionSubR;
 
-    [Header("¿¬»çÀ²")]
+    [Header("ì—°ì‚¬ìœ¨")]
     [SerializeField] private float _fireRate = 0.6f;
+
+   
 
 
     private float cooldownTime = 0f;
+   
 
     private void Update()
     {
@@ -54,7 +58,7 @@ public class PlayerFire : MonoBehaviour
 
     private void MakeBullets()
     {
-        //Å¬·¡½º -> °´Ã¼(¼Ó¼º+±â´É) -> ¸Ş¸ğ¸®¿¡ ½ÇÁ¦·Î ·ÎµåµÈ °´Ã¼¸¦ ÀÎ½ºÅÏ½º¶ó°í ÇÑ´Ù.
+        //í´ë˜ìŠ¤ -> ê°ì²´(ì†ì„±+ê¸°ëŠ¥) -> ë©”ëª¨ë¦¬ì— ì‹¤ì œë¡œ ë¡œë“œëœ ê°ì²´ë¥¼ ì¸ìŠ¤í„´ìŠ¤ë¼ê³  í•œë‹¤.
         GameObject bulletObj_1=Instantiate(_bulletPrefab, _firePositionL.position, Quaternion.identity);
         GameObject bulletObj_2 = Instantiate(_bulletPrefab, _firePositionR.position, Quaternion.identity);
 

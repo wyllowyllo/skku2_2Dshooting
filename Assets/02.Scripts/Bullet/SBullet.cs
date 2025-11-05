@@ -1,40 +1,46 @@
-
+Ôªø
 
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class SBullet :Bullet
 {
-    Vector2 _startPos;
-    float _t;
+    [Header("S Í≥°ÏÑ† Í∑∏Î¶¨Í∏∞")]
+    [SerializeField] private float _freqnuency = 2f; // Ï£ºÍ∏∞
+    [SerializeField] private float _amplitude = 0.5f; // ÏßÑÌè≠
 
+
+    private float _timer;
+    private Vector2 _startPos;
     protected override void Start()
     {
         _startPos = transform.position;
-        _t = 0f;
+        _timer = 0f;
     }
 
     protected override void Update()
     {
-        _t += Time.deltaTime;
+        _timer += Time.deltaTime;
+        base.Update();
+    }
 
-        
-        float f = 2f;  // ¡÷±‚               
-        float amp = 0.5f;   // ¡¯∆¯           
-        Vector2 forward = Vector2.up; 
+    protected sealed override  void BulletMove() 
+    {
+        Vector2 forward = Vector2.up;
         Vector2 right = Vector2.right;
 
-        // ∞°º” ∑Œ¡˜
+        // Í∞ÄÏÜç Î°úÏßÅ
         float speedDelta = (_lastBulletSpeed - _firstBulletSpeed) / _totalAccelTime;
         _bulletSpeed += speedDelta * Time.deltaTime;
         _bulletSpeed = Mathf.Min(_bulletSpeed, _lastBulletSpeed);
 
-        float theta = 2f * Mathf.PI * f * _t; //Ω√∞£ø° µ˚∂Û ∞¢µµ ¡ı∞°
+        float theta = 2f * Mathf.PI * _freqnuency * _timer; //ÏãúÍ∞ÑÏóê Îî∞Îùº Í∞ÅÎèÑ Ï¶ùÍ∞Ä
 
         Vector2 pos =
             _startPos
-            + forward * (_bulletSpeed * _t)               
-            + right * (amp * Mathf.Sin(theta));          
+            + forward * (_bulletSpeed * _timer)
+            + right * (_amplitude * Mathf.Sin(theta));
 
         transform.position = pos;
     }
