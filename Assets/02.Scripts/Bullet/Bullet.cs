@@ -49,6 +49,7 @@ public class Bullet : MonoBehaviour
     {
         if (!collision.CompareTag("Enemy")) return;
 
+      
         Enemy enemy = collision.GetComponent<Enemy>();
 
         if(enemy!=null)
@@ -56,4 +57,6 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    
 }

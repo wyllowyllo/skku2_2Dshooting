@@ -3,6 +3,7 @@
 public class Enemy : MonoBehaviour
 {
     [Header("기본스텟")]
+    [SerializeField] private float _damage = 1f;
     [SerializeField] private float _health = 100f;
     [SerializeField] private float _moveSpeed=1f;
 
@@ -11,9 +12,9 @@ public class Enemy : MonoBehaviour
 
     [Header("플래그 변수")]
     private bool _isDead = false;
-
    
-       
+
+
 
     public float Health { get => _health; }
 
@@ -47,6 +48,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
+
+        
+        Player player = collision.GetComponent<Player>();
+
+        if(player != null)
+            player.Hit(_damage);
+
+        Destroy(gameObject);    
+
+    }
+
+
 
 }

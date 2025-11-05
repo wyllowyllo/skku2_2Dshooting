@@ -10,7 +10,7 @@ public class PlayerFire : MonoBehaviour
 {
     //목표 : 스페이스바를 누르면 총알을 만들어서 발사하고 싶다
     [Header("공격 모드")]
-    private AttackMode _attackMode = AttackMode.ATK_AUTO;
+    private AttackMode _attackMode = AttackMode.ATK_MANUAL;
 
     //필요 속성
     [Header("총알 프리펩")]
@@ -25,8 +25,7 @@ public class PlayerFire : MonoBehaviour
 
     [Header("연사율")]
     [SerializeField] private float _fireRate = 0.6f;
-
-   
+    
 
 
     private float cooldownTime = 0f;

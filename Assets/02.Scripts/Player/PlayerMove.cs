@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _speed=3;
     [SerializeField] private float _maxSpeed = 10;
     [SerializeField] private float _minSpeed = 1;
-    [SerializeField] private int _totalHealthCnt = 3;
+   
 
     [Header("시작위치")]
     private Vector2 originPosition = Vector2.zero;
@@ -32,14 +32,14 @@ public class PlayerMove : MonoBehaviour
     [Header("플래그 변수")]
     private bool _isRecording = false;
     private bool _isReplaying = false;
-    private bool _isDead = false;
+   
 
     private int _currentHealthCnt;
 
     private void Start()
     {
         originPosition = transform.position;
-        _currentHealthCnt = _totalHealthCnt;
+       
 
     }
     private void Update()
@@ -196,23 +196,6 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(!collision.CompareTag("Enemy") || _isDead) return;
-
-
-        _currentHealthCnt--;
-        if (_currentHealthCnt <= 0)
-        {
-            Dead();
-        }
-
-    }
-
-    private void Dead()
-    {
-        _isDead= true;
-        Destroy(gameObject);
-    }
+  
+    
 }
