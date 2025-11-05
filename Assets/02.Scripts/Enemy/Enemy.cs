@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
         transform.position = currentPos + nextPos;
     }
 
-    public void OnDamage(in float damage)
+    public void Hit(in float damage)
     {
 
         if (_isDead) return;
