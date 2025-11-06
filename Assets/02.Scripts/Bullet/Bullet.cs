@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;
 
       
-        StraightEnemy enemy = collision.GetComponent<StraightEnemy>();
+        Enemy enemy = collision.GetComponent<Enemy>();
 
         if(enemy!=null)
             enemy.Hit(_bulletDamage);
