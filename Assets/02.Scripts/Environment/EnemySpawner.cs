@@ -1,22 +1,22 @@
-using System;
+ï»¿using System;
 using System.Linq;
 using UnityEngine;
 using Random=UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("½ºÆù Æ÷ÀÎÆ®")]
+    [Header("ìŠ¤í° í¬ì¸íŠ¸")]
     [SerializeField] private Transform[] _spawnPoints;
 
-    [Header("½ºÆù °£°İ")]
+    [Header("ìŠ¤í° ê°„ê²©")]
     [SerializeField] private float _minSpawnInterval = 1f;
     [SerializeField] private float _maxSpawnInterval = 3f;
     private float _spawnInterval = 1f;
 
-    [Header("½ºÆù Àû ÇÁ¸®Æé")]
+    [Header("ìŠ¤í° ì  í”„ë¦¬í©")]
     [SerializeField] private GameObject[] _enemyPrefab;
 
-    [Header("Å¸ÀÔº° ½ºÆù È®·ü")]
+    [Header("íƒ€ì…ë³„ ìŠ¤í° í™•ë¥ ")]
     [SerializeField] private float _straightEnemySpawnRate = 0.7f;
     [SerializeField] private float _traceEnemySpawnRate = 0.3f;
 

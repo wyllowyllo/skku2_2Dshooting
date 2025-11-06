@@ -1,10 +1,10 @@
-
+ï»¿
 
 using UnityEngine;
 
 public abstract class  Movement: MonoBehaviour
 {
-    [Header("¹æÇâ&¼Óµµ")]
+    [Header("ë°©í–¥&ì†ë„")]
     [SerializeField] protected float moveSpeed = 1f;
     protected Vector2 moveDir;
 
