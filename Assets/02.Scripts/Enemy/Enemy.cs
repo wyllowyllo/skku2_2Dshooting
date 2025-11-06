@@ -1,29 +1,36 @@
 ﻿using UnityEngine;
 
+public enum EnemyType
+{
+    ET_Straight = 0,
+    ET_Trace = 1,
+}
+
 public class Enemy : MonoBehaviour
 {
     [Header("기본스텟")]
-    [SerializeField] protected float damage = 1f;
-    [SerializeField] protected float health = 100f;
+    [SerializeField] private EnemyType _enemyType;
+    [SerializeField] private float _damage = 1f;
+    [SerializeField] private float _health = 100f;
     
 
     [Header("플래그 변수")]
-    protected bool isDead = false;
+    private bool _isDead = false;
 
-    public float Health { get => health; }
+    public float Health { get => _health; }
 
  
 
     public void Hit(float damage)
     {
 
-        if (isDead) return;
+        if (_isDead) return;
 
-        health -=damage;
+        _health -=damage;
 
-        if(health<=0)
+        if(_health<=0)
         {
-            isDead = true;
+            _isDead = true;
             Destroy(gameObject);
         }
     }
@@ -36,7 +43,7 @@ public class Enemy : MonoBehaviour
         Player player = collision.GetComponent<Player>();
 
         if(player != null)
-            player.Hit(damage);
+            player.Hit(_damage);
 
         Destroy(gameObject);    
 

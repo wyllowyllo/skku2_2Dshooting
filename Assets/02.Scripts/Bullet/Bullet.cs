@@ -12,18 +12,18 @@ public class Bullet : MonoBehaviour
 {
     [Header("기본 스텟")]
     [SerializeField] private BulletType _bulletType;
-    [SerializeField] protected float _bulletDamage;
-    [SerializeField] protected float _bulletSpeed;
-    [SerializeField] protected float _firstBulletSpeed = 1f;
-    [SerializeField] protected float _lastBulletSpeed = 7f;
-    [SerializeField] protected float _totalAccelTime = 1.2f;
+    [SerializeField] protected float bulletDamage;
+    [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected float firstBulletSpeed = 1f;
+    [SerializeField] protected float lastBulletSpeed = 7f;
+    [SerializeField] protected float totalAccelTime = 1.2f;
 
 
-    protected virtual void Start()
+    private void Start()
     {
-        _bulletSpeed = _firstBulletSpeed;
+        bulletSpeed = firstBulletSpeed;
     }
-    protected virtual void Update()
+    private void Update()
     {
         BulletMove();
         
@@ -34,13 +34,13 @@ public class Bullet : MonoBehaviour
         //방향을 구한다
         Vector2 direction = Vector2.up;
 
-        float speedDelta = (_lastBulletSpeed - _firstBulletSpeed) / _totalAccelTime;
-        _bulletSpeed += speedDelta * Time.deltaTime;
-        _bulletSpeed = Mathf.Min(_bulletSpeed, _lastBulletSpeed);
+        float speedDelta = (lastBulletSpeed - firstBulletSpeed) / totalAccelTime;
+        bulletSpeed += speedDelta * Time.deltaTime;
+        bulletSpeed = Mathf.Min(bulletSpeed, lastBulletSpeed);
 
         //새로운 위치는 = 현재 위치 + 방향 * 속력 * 시간
         Vector2 position = transform.position;
-        Vector2 newPosition = position + direction * _bulletSpeed * Time.deltaTime;
+        Vector2 newPosition = position + direction * bulletSpeed * Time.deltaTime;
         transform.position = newPosition;
 
     }
@@ -53,7 +53,7 @@ public class Bullet : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
 
         if(enemy!=null)
-            enemy.Hit(_bulletDamage);
+            enemy.Hit(bulletDamage);
 
         Destroy(gameObject);
     }

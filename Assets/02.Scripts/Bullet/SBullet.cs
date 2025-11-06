@@ -13,13 +13,13 @@ public class SBullet :Bullet
 
     private float _timer;
     private Vector2 _startPos;
-    protected override void Start()
+   private void Start()
     {
         _startPos = transform.position;
         _timer = 0f;
     }
 
-    protected override void Update()
+    private void Update()
     {
         _timer += Time.deltaTime;
         BulletMove();
@@ -31,15 +31,15 @@ public class SBullet :Bullet
         Vector2 right = Vector2.right;
 
         // 가속 로직
-        float speedDelta = (_lastBulletSpeed - _firstBulletSpeed) / _totalAccelTime;
-        _bulletSpeed += speedDelta * Time.deltaTime;
-        _bulletSpeed = Mathf.Min(_bulletSpeed, _lastBulletSpeed);
+        float speedDelta = (lastBulletSpeed - firstBulletSpeed) / totalAccelTime;
+        bulletSpeed += speedDelta * Time.deltaTime;
+        bulletSpeed = Mathf.Min(bulletSpeed, lastBulletSpeed);
 
         float theta = 2f * Mathf.PI * _freqnuency * _timer; //시간에 따라 각도 증가
 
         Vector2 pos =
             _startPos
-            + forward * (_bulletSpeed * _timer)
+            + forward * (bulletSpeed * _timer)
             + right * (_amplitude * Mathf.Sin(theta));
 
         transform.position = pos;

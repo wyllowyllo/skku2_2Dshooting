@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletType: 1
-  _bulletDamage: 60
-  _bulletSpeed: 1
-  _firstBulletSpeed: 1
-  _lastBulletSpeed: 7
-  _totalAccelTime: 1.2
+  bulletDamage: 50
+  bulletSpeed: 0
+  firstBulletSpeed: 1
+  lastBulletSpeed: 7
+  totalAccelTime: 1.2
 --- !u!60 &4315918951380931701
 PolygonCollider2D:
   m_ObjectHideFlags: 0

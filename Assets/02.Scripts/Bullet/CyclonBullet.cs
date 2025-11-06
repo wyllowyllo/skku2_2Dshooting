@@ -9,12 +9,12 @@ public class CyclonBullet:Bullet
 
     private float _timer;
     private Vector2 _startPos;
-    protected override void Start()
+    private void Start()
     {
         _startPos = transform.position;
         _timer = 0f;
     }
-    protected override void Update()
+    private void Update()
     {
         _timer += Time.deltaTime;
         BulletMove();
@@ -26,12 +26,12 @@ public class CyclonBullet:Bullet
         
 
         // 가속 로직
-        float speedDelta = (_lastBulletSpeed - _firstBulletSpeed) / _totalAccelTime;
-        _bulletSpeed += speedDelta * Time.deltaTime;
-        _bulletSpeed = Mathf.Min(_bulletSpeed, _lastBulletSpeed);
+        float speedDelta = (lastBulletSpeed - firstBulletSpeed) / totalAccelTime;
+        bulletSpeed += speedDelta * Time.deltaTime;
+        bulletSpeed = Mathf.Min(bulletSpeed, lastBulletSpeed);
 
         //반지름 증가
-        float radiusDelta = (_endRadius - _radius) / _totalAccelTime;
+        float radiusDelta = (_endRadius - _radius) / totalAccelTime;
         _radius += radiusDelta * Time.deltaTime;
         _radius = Mathf.Min(_radius, _endRadius);
 
@@ -39,7 +39,7 @@ public class CyclonBullet:Bullet
 
         Vector2 pos =
             _startPos
-            + forward * (_bulletSpeed * _timer)
+            + forward * (bulletSpeed * _timer)
             + new Vector2(_radius * Mathf.Cos(theta), _radius * Mathf.Sin(theta));
 
         transform.position = pos;
