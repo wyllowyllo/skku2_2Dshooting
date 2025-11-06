@@ -8,6 +8,8 @@ public class TraceMovement : Movement
 
     private void Start()
     {
+        //캐싱 : 자주 쓰는 데이터를 미리 가까운 곳에 저장해두고 참조하는 것
+        
         _playerObject = GameObject.FindWithTag("Player");
     }
     private void Update()
