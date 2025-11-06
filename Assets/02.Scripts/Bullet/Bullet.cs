@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public enum BulletType
+public enum EBulletType
 {
     BT_NORMAL=1,
     BT_MINI=2,
@@ -11,7 +11,7 @@ public enum BulletType
 public class Bullet : MonoBehaviour
 {
     [Header("기본 스텟")]
-    [SerializeField] private BulletType _bulletType;
+    [SerializeField] private EBulletType _bulletType;
     [SerializeField] protected float bulletDamage;
     [SerializeField] protected float bulletSpeed;
     [SerializeField] protected float firstBulletSpeed = 1f;

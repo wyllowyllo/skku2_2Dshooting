@@ -19,10 +19,8 @@ public class TraceMovement : Movement
     protected override void Move()
     {
         if (_playerObject == null)
-        {
-
             return;
-        }
+        
 
         Vector2 dir = (_playerObject.transform.position - transform.position).normalized;
 

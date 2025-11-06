@@ -65,9 +65,9 @@ public class EnemySpawner : MonoBehaviour
         float spawnRate = Random.Range(0f, 1f);
 
         if(spawnRate <= _straightEnemySpawnRate)
-            _spawnEnemyIdx = (int)EnemyType.ET_Straight;
+            _spawnEnemyIdx = (int)EEnemyType.ET_Straight;
         else
-            _spawnEnemyIdx = (int)EnemyType.ET_Trace;
+            _spawnEnemyIdx = (int)EEnemyType.ET_Trace;
         
     }
 

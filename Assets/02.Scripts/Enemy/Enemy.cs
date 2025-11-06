@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 
-public enum EnemyType
+public enum EEnemyType
 {
     ET_Straight = 0,
     ET_Trace = 1,
+    ET_Eater = 2,
 }
 
 public class Enemy : MonoBehaviour
 {
     [Header("기본스텟")]
-    [SerializeField] private EnemyType _enemyType;
+    [SerializeField] private EEnemyType _enemyType;
     [SerializeField] private float _damage = 1f;
     [SerializeField] private float _health = 100f;
     
