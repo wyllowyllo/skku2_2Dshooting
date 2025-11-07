@@ -12,7 +12,7 @@ public class DropItem:MonoBehaviour
     [SerializeField] private float _weightSum = 100f;
 
     [Header("아이템별 드랍 가중치")]
-    [SerializeField] DropWeightByItem[] _dropWeightByItem;
+    [SerializeField] private DropWeightByItem[] _dropWeightByItem;
     
 
 

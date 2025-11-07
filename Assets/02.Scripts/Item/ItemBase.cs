@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 
 public enum EItemType
@@ -12,8 +13,10 @@ public abstract class ItemBase:MonoBehaviour
     [SerializeField] protected EItemType itemType;
     [SerializeField] protected float increment = 1.0f;
     [SerializeField] protected const string targetTag = "Player";
+  
+    
     protected abstract void ApplyEffect(GameObject target);
-
+   
     protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag(targetTag))
@@ -24,4 +27,6 @@ public abstract class ItemBase:MonoBehaviour
 
         Destroy(gameObject);
     }
+
+   
 }

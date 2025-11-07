@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 886977792570578980}
   - component: {fileID: 5289547413696132153}
   - component: {fileID: 155220946901866936}
+  - component: {fileID: 3194898766728354644}
   m_Layer: 0
   m_Name: ShootSpeedItem
   m_TagString: Untagged
@@ -182,3 +183,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3194898766728354644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044834320275227091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c9da05ec2d6f74681f8134af02ff67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waitTime: 2
+  _duration: 1
+  _distanceFactorFromStart: 3
+  _distanceFactorFromTarget: 3
