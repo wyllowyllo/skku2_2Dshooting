@@ -9,16 +9,6 @@ public class MoveSpeedItem : ItemBase
         if (playerMove != null)
             playerMove.SpeedUp(increment);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(!collision.CompareTag("Player"))
-            return;
-
-        ApplyEffect(collision.gameObject);
-
-
-        Destroy(gameObject);
-    }
-
+   
     
 }

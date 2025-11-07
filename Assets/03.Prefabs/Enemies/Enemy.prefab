@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 2272311462862577955}
   - component: {fileID: 1746971908089234990}
   - component: {fileID: 7347732360232029310}
+  - component: {fileID: 3451358562055435432}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -295,6 +296,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 1.7
   _bulletPrefab: {fileID: 3694399846982936394, guid: 666d8bc457d8c8c4dbee1f722ffbb43f, type: 3}
+--- !u!114 &3451358562055435432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258407495704171720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08be96299229eac41b5bc9b0623dfbeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemPrefabs:
+  - {fileID: 3621666999164691931, guid: 8b1b050057a92b346a3b665684b42b56, type: 3}
+  - {fileID: 1086213354928361878, guid: 3d192be84bfd5444b94669557d819a69, type: 3}
+  - {fileID: 9044834320275227091, guid: 74729b5fc07e32642a52f745c5633817, type: 3}
+  _dropRate: 0.5
+  _weightSum: 100
+  _dropWeightByItem:
+  - ItemType: 0
+    DropWeight: 70
+  - ItemType: 1
+    DropWeight: 20
+  - ItemType: 2
+    DropWeight: 10
 --- !u!1 &3686042644207092252
 GameObject:
   m_ObjectHideFlags: 0

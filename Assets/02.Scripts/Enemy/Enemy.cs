@@ -18,10 +18,14 @@ public class Enemy : MonoBehaviour
     [Header("플래그 변수")]
     private bool _isDead = false;
 
+    private DropItem _dropItem;
     public float Health { get => _health; }
 
- 
 
+    private void Start()
+    {
+        _dropItem = GetComponent<DropItem>();
+    }
     public void Hit(float damage)
     {
 
@@ -32,6 +36,11 @@ public class Enemy : MonoBehaviour
         if(_health<=0)
         {
             _isDead = true;
+
+            if (_dropItem != null)
+                _dropItem.Drop();
+
+            
             Destroy(gameObject);
         }
     }
@@ -50,5 +59,5 @@ public class Enemy : MonoBehaviour
 
     }
 
-
+   
 }
