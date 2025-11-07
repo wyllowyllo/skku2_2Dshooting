@@ -25,8 +25,7 @@ public class PlayerFire : MonoBehaviour
 
     [Header("연사율")]
     [SerializeField] private float _fireRate = 0.6f;
-    
-
+    [SerializeField] private float _minFireRate = 0.1f;
 
     private float _cooldownTime = 0f;
    
@@ -54,6 +53,11 @@ public class PlayerFire : MonoBehaviour
         }
     }
    
+    public void FireRateUp(float increment)
+    {
+        _fireRate -= increment;
+        _fireRate = Mathf.Max(_fireRate, _minFireRate);
+    }
 
     private void MakeBullets()
     {
