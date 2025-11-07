@@ -49,8 +49,48 @@ public class PlayerMove : MonoBehaviour
         _inputReplayer?.Tick();
 
         //움직임 적용
-        ModifySpeed();
+        //ModifySpeed();
         MovePlayer();
+    }
+    public void StartRecording()
+    {
+        if (_isRecording)
+            return;
+
+        _isRecording = true;
+
+        _input = new InputController();
+        _inputRecorder = new InputRecorder(_input);
+        _inputRecorder.StartRecording();
+
+        recordStartPos = transform.position;
+    }
+
+    public void StartReplaying()
+    {
+        if (_isReplaying)
+            return;
+
+
+        _isReplaying = true;
+
+        transform.position = recordStartPos;
+
+        _inputReplayer = new InputReplayer(_inputRecorder.Events);
+
+        _inputReplayer.ReplayFinished.AddListener(ReplayingFinished);
+        _inputReplayer.StartReplaying();
+
+        _input = _inputReplayer;
+
+
+    }
+
+
+    public void SpeedUp(float speedIncrement)
+    {
+        _speed += speedIncrement;
+        _speed=Mathf.Min(_speed, _maxSpeed);
     }
 
     private void MovePlayer()
@@ -149,40 +189,7 @@ public class PlayerMove : MonoBehaviour
         transform.Translate(dirVec * speed * Time.deltaTime);
     }
 
-    public void StartRecording()
-    {
-        if (_isRecording)
-            return;
-
-        _isRecording = true;
-
-        _input = new InputController();
-        _inputRecorder = new InputRecorder(_input);
-        _inputRecorder.StartRecording();
-
-        recordStartPos= transform.position;
-    }
-
-    public void StartReplaying()
-    {
-        if (_isReplaying)
-            return;
-
-        
-        _isReplaying = true;
-
-        transform.position = recordStartPos;
-
-        _inputReplayer = new InputReplayer(_inputRecorder.Events);
-
-        _inputReplayer.ReplayFinished.AddListener(ReplayingFinished);
-        _inputReplayer.StartReplaying();
-
-        _input = _inputReplayer;
-
-        
-    }
-
+   
     private void ReplayingFinished()
     {
 
