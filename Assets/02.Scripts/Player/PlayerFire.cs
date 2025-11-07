@@ -28,7 +28,7 @@ public class PlayerFire : MonoBehaviour
     
 
 
-    private float cooldownTime = 0f;
+    private float _cooldownTime = 0f;
    
 
     private void Update()
@@ -37,7 +37,7 @@ public class PlayerFire : MonoBehaviour
        SwitchAtkMode();
 
 
-        if (cooldownTime >= _fireRate)
+        if (_cooldownTime >= _fireRate)
         { 
             Fire();
         }
@@ -50,7 +50,7 @@ public class PlayerFire : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) || _attackMode==AttackMode.ATK_AUTO)
         {
             MakeBullets();
-            cooldownTime = 0f;
+            _cooldownTime = 0f;
         }
     }
    
@@ -76,6 +76,6 @@ public class PlayerFire : MonoBehaviour
     }
     private void FireCoolTimer()
     {
-        cooldownTime += Time.deltaTime;
+        _cooldownTime += Time.deltaTime;
     }
 }
