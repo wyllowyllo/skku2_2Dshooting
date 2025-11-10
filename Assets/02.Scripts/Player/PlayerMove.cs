@@ -43,7 +43,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _safetyDistance=3f; //적 유닛과의 안전거리
     [SerializeField] private float _marginYDist=1.5f; //보드 바닥과의 거리
     private Scanner _scanner;
-    private const float _marginOfPosDiff = 1e-9f;
+    private const float _marginOfPosDiff = 1e-2f;
     
     [Header("플래그 변수")]
     private bool _isRecording = false;
@@ -53,7 +53,7 @@ public class PlayerMove : MonoBehaviour
 
     private int _currentHealthCnt;
     private Vector2 _prevPosition=Vector2.zero;
-   
+    private Animator _animator;
 
     private void Start()
     {
@@ -61,6 +61,7 @@ public class PlayerMove : MonoBehaviour
        
         _scanner=GetComponent<Scanner>();
         _input=GetComponent<InputController>();
+        _animator=GetComponent<Animator>();
         
         if(_input==null) _input=gameObject.AddComponent<InputController>();
         if(_scanner==null) _scanner=gameObject.AddComponent<Scanner>();
@@ -154,9 +155,14 @@ public class PlayerMove : MonoBehaviour
         //방향을 크기 1로 만드는 정규화를 한다.
         direction.Normalize(); // or direction = direction.normalized;
         
+        
+        _animator.SetInteger("x",(int)direction.x);
+        
+        
         float additionalSpeed = onDash ? _dashSpeed : 1f;
         float finalSpeed = _speed * additionalSpeed;
 
+      
         //3. 그 뱡향으로 이동을 한다.
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * finalSpeed * Time.deltaTime; //새로운 위치
@@ -181,6 +187,8 @@ public class PlayerMove : MonoBehaviour
         
         Vector2 myPos = transform.position;
         Vector2 targetPos = targetTr.position;
+        
+      
         float curDiff = Vector2.Distance(myPos, targetPos);
 
         Vector2 direction = Vector2.zero;
@@ -210,9 +218,12 @@ public class PlayerMove : MonoBehaviour
 
         if (Vector2.Distance(newPosition, _prevPosition) > _marginOfPosDiff)
         {
+            _animator.SetInteger("x",_prevPosition.x>newPosition.x ? -1 : 1);
+            
             transform.position = newPosition;
             _prevPosition = newPosition;
         }
+        else _animator.SetInteger("x",0);
     }
     private void SwitchAtkMode()
     {
