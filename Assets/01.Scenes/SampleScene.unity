@@ -1363,8 +1363,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8899815592965048949, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
-      propertyPath: _minInterceptMoveRange
+      propertyPath: _marginYDist
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899815592965048949, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
+      propertyPath: _safetyDistance
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899815592965048949, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
+      propertyPath: _minInterceptMoveRange
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

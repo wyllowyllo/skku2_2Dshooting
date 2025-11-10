@@ -26,7 +26,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _maxSpeed = 10;
     [SerializeField] private float _minSpeed = 1;
     [SerializeField] private float _dashSpeed = 2f;
-    [SerializeField] private float _minInterceptMoveRange=1f; //요격기동 최소범위
+    [SerializeField] private float _minInterceptMoveRange=1.5f; //요격기동 최소범위
 
     [Header("시작위치")]
     private Vector2 originPosition = Vector2.zero;
@@ -39,17 +39,21 @@ public class PlayerMove : MonoBehaviour
     private InputRecorder _inputRecorder;
     private InputReplayer _inputReplayer;
 
-    [Header("스캐너 모듈")]
+    [Header("자동컨트롤 관련 변수")]
+    [SerializeField] private float _safetyDistance=3f; //적 유닛과의 안전거리
+    [SerializeField] private float _marginYDist=1.5f; //보드 바닥과의 거리
     private Scanner _scanner;
+    private const float _marginOfPosDiff = 1e-9f;
     
     [Header("플래그 변수")]
     private bool _isRecording = false;
     private bool _isReplaying = false;
    
+    
 
     private int _currentHealthCnt;
     private Vector2 _prevPosition=Vector2.zero;
-    private const float _marginOfPosDiff = 1e-9f;
+   
 
     private void Start()
     {
@@ -184,7 +188,15 @@ public class PlayerMove : MonoBehaviour
         if (curDiff < _minInterceptMoveRange)
         {
             //회피 기동
-            direction = -(targetPos - myPos).normalized;
+            if (myPos.y - BoardBounds.Instance.BoardBottomY > _marginYDist)
+            {
+                Vector2 offset = Vector2.down *_safetyDistance;
+              
+                direction = ((targetPos+offset)-myPos).normalized;
+            }
+            else
+                direction = -(targetPos - myPos).normalized;
+            
         }
         else
         {
@@ -195,10 +207,12 @@ public class PlayerMove : MonoBehaviour
         float autoMoveSpeed = _speed * _dashSpeed;
         Vector2 newPosition = myPos + direction * autoMoveSpeed * Time.deltaTime; //새로운 위치
         newPosition = BoardBounds.Instance.MoveClamp(newPosition);
-            
-        if(Vector2.Distance(newPosition, _prevPosition)>_marginOfPosDiff)  transform.position = newPosition;
-            
-       _prevPosition = newPosition;
+
+        if (Vector2.Distance(newPosition, _prevPosition) > _marginOfPosDiff)
+        {
+            transform.position = newPosition;
+            _prevPosition = newPosition;
+        }
     }
     private void SwitchAtkMode()
     {
@@ -209,9 +223,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void ModifySpeed()
     {
-        /* bool speedUp=Input.GetKeyDown(KeyCode.Q);
-         bool speedDown=Input.GetKeyDown(KeyCode.E);*/
-
+       
          bool speedUp = _input.SpeedUp;
          bool speedDown = _input.SpeedDown;
 

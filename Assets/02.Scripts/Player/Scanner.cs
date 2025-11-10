@@ -24,7 +24,7 @@ public class Scanner : MonoBehaviour
     private Transform GetNearest()
     {
         Transform result = null;
-        float diff = _scanRange+10f;
+        float diff = _scanRange;
 
         foreach(RaycastHit2D target in _targets)
         {
@@ -32,11 +32,11 @@ public class Scanner : MonoBehaviour
             Vector3 myPos = transform.position;
             Vector3 targetPos = target.transform.position;
             
-            if(myPos.y >=targetPos.y) continue;
+            if(myPos.y >= targetPos.y) continue;
                 
             float curDiff = Vector3.Distance(myPos, targetPos);
 
-            if (curDiff < diff)
+            if (curDiff <= diff)
             {
                 diff = curDiff;
                 result = target.transform;

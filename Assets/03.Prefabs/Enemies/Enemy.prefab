@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyType: 0
   _damage: 1
-  _health: 100
+  _health: 1000
 --- !u!114 &1746971908089234990
 MonoBehaviour:
   m_ObjectHideFlags: 0
