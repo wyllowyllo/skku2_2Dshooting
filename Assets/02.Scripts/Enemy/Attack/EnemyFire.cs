@@ -5,7 +5,7 @@ public class EnemyFire : EnemyAttack
     [Header("총알 프리펩")]
     [SerializeField] private GameObject _bulletPrefab;
 
-    private Vector2 _bulletPosOffsetL=new Vector2(-0.5f,-1f);
+    private Vector2 _bulletPosOffsetL = new Vector2(-0.5f,-1f);
     private Vector2 _bulletPosOffsetR = new Vector2(+0.5f, -1f);
 
     private void Update()

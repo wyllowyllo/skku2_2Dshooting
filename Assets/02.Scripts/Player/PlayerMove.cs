@@ -33,7 +33,7 @@ public class PlayerMove : MonoBehaviour
     private Vector2 recordStartPos = Vector2.zero;
 
     [Header("플레이어 입력 처리 모듈")]
-    private IInputSource _input=new InputController();
+    private InputController _input;
 
     [Header("녹화&리플레이 객체")]
     private InputRecorder _inputRecorder;
@@ -49,18 +49,23 @@ public class PlayerMove : MonoBehaviour
 
     private int _currentHealthCnt;
     private Vector2 _prevPosition=Vector2.zero;
+    private const float _marginOfPosDiff = 1e-9f;
 
     private void Start()
     {
         originPosition = transform.position;
        
-        _scanner=GetComponent<Scanner>();   
+        _scanner=GetComponent<Scanner>();
+        _input=GetComponent<InputController>();
+        
+        if(_input==null) _input=gameObject.AddComponent<InputController>();
+        if(_scanner==null) _scanner=gameObject.AddComponent<Scanner>();
     }
     private void Update()
     {
         //녹화/리플레이 처리
-        _inputRecorder?.Tick();
-        _inputReplayer?.Tick();
+        /*_inputRecorder?.Tick();
+        _inputReplayer?.Tick();*/
 
         //컨트롤 모드 설정
         SwitchAtkMode();
@@ -71,8 +76,8 @@ public class PlayerMove : MonoBehaviour
     }
     public void StartRecording()
     {
-        if (_isRecording)
-            return;
+        /*if (_isRecording)   return;
+          
 
         _isRecording = true;
 
@@ -80,13 +85,13 @@ public class PlayerMove : MonoBehaviour
         _inputRecorder = new InputRecorder(_input);
         _inputRecorder.StartRecording();
 
-        recordStartPos = transform.position;
+        recordStartPos = transform.position;*/
     }
 
     public void StartReplaying()
     {
-        if (_isReplaying)
-            return;
+        /*if (_isReplaying)  return;
+           
 
 
         _isReplaying = true;
@@ -98,7 +103,7 @@ public class PlayerMove : MonoBehaviour
         _inputReplayer.ReplayFinished.AddListener(ReplayingFinished);
         _inputReplayer.StartReplaying();
 
-        _input = _inputReplayer;
+        _input = _inputReplayer;*/
 
 
     }
@@ -107,28 +112,11 @@ public class PlayerMove : MonoBehaviour
     public void SpeedUp(float speedIncrement)
     {
         _speed += speedIncrement;
-        _speed=Mathf.Min(_speed, _maxSpeed);
+        _speed = Mathf.Min(_speed, _maxSpeed);
     }
 
     private void MovePlayer()
     {
-      
-        /*
-      
-        // 1. 키보드 입력을 감지한다.
-        // 유니티에서는 Input이라고 하는 모듈이 입력에 관한 모든것을 담당한다.(키보드,마우스, 리모컨, 콘솔 등...)
-        float h = Input.GetAxis("Horizontal"); //수평 입력에 대한 값을 -1~0~1 로  가져온다 -> 서서히 부드럽게 변함(가속이 있음. inputmanager의 sensitivity 값에 따라 달라짐) 
-        float v = Input.GetAxis("Vertical");//수직 입력에 대한 값을 -1~0~1 로  가져온다 -> 서서히 부드럽게 변함(가속이 있음. inputmanager의 sensitivity 값에 따라 달라짐) 
-        float h = Input.GetAxisRaw("Horizontal"); //수평 입력에 대한 값을 -1,0,1 로  가져온다
-         float v = Input.GetAxisRaw("Vertical");//수직 입력에 대한 값을 -1,0,1 로  가져온다
-         bool r= Input.GetKey(KeyCode.R);
-         bool onDash = Input.GetKey(KeyCode.LeftShift);
-
-        float h= _input.Horizontal;
-        float v= _input.Vertical;
-
-
-          */
         if (_controlMode == EControlMode.Ctrl_AUTO)
         {
             AutoMove();
@@ -138,19 +126,6 @@ public class PlayerMove : MonoBehaviour
         bool onReturn = _input.ResetPosition;
         bool onDash= _input.Dash;
 
-
-
-        //2. 입력으로부터 방향을 구한다
-        //Vector2 direction = new Vector2(h, v);
-        Vector2 direction = _input.MoveInput;
-
-        //방향을 크기 1로 만드는 정규화를 한다.
-        direction.Normalize(); // or direction = direction.normalized;
-
-
-       
-        //3. 그 뱡향으로 이동을 한다.
-        Vector2 position = transform.position;
 
         /*
        //새로운 위치= 현재위치 +방향*속력*시간
@@ -169,13 +144,20 @@ public class PlayerMove : MonoBehaviour
        //tip) 코딩 규칙 - -1,0,1 이 세개 빼고는 다 매직 넘버이므로 숫자 그대로 쓰지 말고 따로 변수로 빼야 한다.
        */
 
+        //2. 입력으로부터 방향을 구한다
+        Vector2 direction = _input.MoveInput;
+
+        //방향을 크기 1로 만드는 정규화를 한다.
+        direction.Normalize(); // or direction = direction.normalized;
+        
         float additionalSpeed = onDash ? _dashSpeed : 1f;
         float finalSpeed = _speed * additionalSpeed;
 
+        //3. 그 뱡향으로 이동을 한다.
+        Vector2 position = transform.position;
         Vector2 newPosition = position + direction * finalSpeed * Time.deltaTime; //새로운 위치
         newPosition = BoardBounds.Instance.MoveClamp(newPosition);
         
-
         //원점으로 이동
         if (onReturn)
         {
@@ -214,7 +196,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 newPosition = myPos + direction * autoMoveSpeed * Time.deltaTime; //새로운 위치
         newPosition = BoardBounds.Instance.MoveClamp(newPosition);
             
-        if(Vector2.Distance(newPosition, _prevPosition)>1e-9)  transform.position = newPosition;
+        if(Vector2.Distance(newPosition, _prevPosition)>_marginOfPosDiff)  transform.position = newPosition;
             
        _prevPosition = newPosition;
     }
@@ -222,7 +204,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(_input.AutoMode) _controlMode = EControlMode.Ctrl_AUTO;
         
-        if(_input.ManualMode)  _controlMode = EControlMode.Ctrl_MANUAL;
+        if(_input.ManualMode) _controlMode = EControlMode.Ctrl_MANUAL;
            
     }
     private void ModifySpeed()
@@ -243,7 +225,7 @@ public class PlayerMove : MonoBehaviour
 
       
 
-        _speed =Mathf.Clamp(_speed, _minSpeed, _maxSpeed);
+        _speed = Mathf.Clamp(_speed, _minSpeed, _maxSpeed);
     }
 
     private void TranslateToOrigin(float speed)

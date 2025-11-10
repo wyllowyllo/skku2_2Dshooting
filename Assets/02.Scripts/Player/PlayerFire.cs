@@ -26,12 +26,22 @@ public class PlayerFire : MonoBehaviour
     [Header("연사율")]
     [SerializeField] private float _fireRate = 0.6f;
     [SerializeField] private float _minFireRate = 0.1f;
+    
+    [Header("플레이어 입력 처리 모듈")]
+    private InputController _input;
 
     private float _cooldownTime = 0f;
-   
+
+
+    private void Start()
+    {
+       _input = GetComponent<InputController>();
+    }
 
     private void Update()
     {
+        if (_input == null) return;
+        
        FireCoolTimer();
        SwitchAtkMode();
 
@@ -45,8 +55,8 @@ public class PlayerFire : MonoBehaviour
 
     private void Fire()
     {
-
-        if (Input.GetKey(KeyCode.Space) || _attackMode==AttackMode.ATK_AUTO)
+        
+        if (_input.Fire || _attackMode == AttackMode.ATK_AUTO)
         {
             MakeBullets();
             _cooldownTime = 0f;
@@ -72,11 +82,11 @@ public class PlayerFire : MonoBehaviour
 
     private void SwitchAtkMode()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            _attackMode= AttackMode.ATK_AUTO;
+        if(_input.AutoMode)
+            _attackMode = AttackMode.ATK_AUTO;
 
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-            _attackMode=AttackMode.ATK_MANUAL;
+        if(_input.ManualMode)
+            _attackMode = AttackMode.ATK_MANUAL;
     }
     private void FireCoolTimer()
     {

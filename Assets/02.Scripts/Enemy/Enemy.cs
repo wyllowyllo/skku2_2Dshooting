@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
         if (_isDead) return;
 
-        _health -=damage;
+        _health -= damage;
 
         if(_health<=0)
         {

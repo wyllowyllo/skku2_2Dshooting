@@ -2,7 +2,7 @@
 using UnityEngine;
 using Input=UnityEngine.Input;
 
-public class InputController : IInputSource
+public class InputController : MonoBehaviour
 {
    public Vector2 MoveInput
     {
@@ -19,6 +19,8 @@ public class InputController : IInputSource
     public bool SpeedDown => Input.GetKeyDown(KeyCode.E);
 
     public bool Dash => Input.GetKey(KeyCode.LeftShift);
+    
+    public bool Fire => Input.GetKey(KeyCode.Space);
 
     public bool ResetPosition => Input.GetKey(KeyCode.R);
     
