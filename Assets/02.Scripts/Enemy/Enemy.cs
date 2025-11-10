@@ -19,12 +19,15 @@ public class Enemy : MonoBehaviour
     private bool _isDead = false;
 
     private DropItem _dropItem;
+    private Animator _animator;
+    
     public float Health { get => _health; }
 
 
     private void Start()
     {
         _dropItem = GetComponent<DropItem>();
+        _animator = GetComponent<Animator>();
     }
     public void Hit(float damage)
     {
@@ -32,7 +35,8 @@ public class Enemy : MonoBehaviour
         if (_isDead) return;
 
         _health -= damage;
-
+        if(_animator!=null) _animator.SetTrigger("Hit");
+        
         if(_health<=0)
         {
             _isDead = true;
