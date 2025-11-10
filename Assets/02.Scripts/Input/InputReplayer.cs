@@ -18,6 +18,8 @@ class InputReplayer : IInputSource
     public bool SpeedDown { get; private set; }
     public bool Dash { get; private set; }
     public bool ResetPosition { get; private set; }
+    public bool AutoMode { get; }
+    public bool ManualMode { get; }
 
     //생성자
     public InputReplayer(IReadOnlyList<InputEvent> events)

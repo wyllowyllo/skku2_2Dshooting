@@ -12,4 +12,7 @@ public interface IInputSource
     public bool SpeedDown { get; }
     public bool Dash { get; }
     public bool ResetPosition { get; }
+    
+    public bool AutoMode { get; }
+    public bool ManualMode { get; }
 }

@@ -21,4 +21,8 @@ public class InputController : IInputSource
     public bool Dash => Input.GetKey(KeyCode.LeftShift);
 
     public bool ResetPosition => Input.GetKey(KeyCode.R);
+    
+    public bool AutoMode => Input.GetKey(KeyCode.Alpha1);
+    
+    public bool ManualMode => Input.GetKey(KeyCode.Alpha2);
 }

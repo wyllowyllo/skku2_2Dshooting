@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4777667961020263247}
   - component: {fileID: 5724758363566954579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hitbox_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1746971908089234990}
   - component: {fileID: 7347732360232029310}
   - component: {fileID: 3451358562055435432}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyType: 0
   _damage: 1
-  _health: 100
+  _health: 500
 --- !u!114 &1746971908089234990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 530663566915293003}
   - component: {fileID: 4472267927551057051}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HitBox_SideL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6798078453080636376}
   - component: {fileID: 4668639616245713809}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HitBox_SideR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
