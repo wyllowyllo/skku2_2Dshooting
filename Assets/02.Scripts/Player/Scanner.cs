@@ -18,7 +18,7 @@ public class Scanner : MonoBehaviour
 
     private void Scan()
     {
-        _targets = Physics2D.CircleCastAll(transform.position, _scanRange, Vector2.zero, _targetLayerMask);
+        _targets = Physics2D.CircleCastAll(transform.position, _scanRange, Vector2.zero, 0f,_targetLayerMask);
         NeareastTargetTr = GetNearest();
     }
     private Transform GetNearest()
@@ -28,9 +28,7 @@ public class Scanner : MonoBehaviour
 
         foreach(RaycastHit2D target in _targets)
         {
-            if (!target.transform.CompareTag("Enemy"))  continue;
-               
-            
+           
             Vector3 myPos = transform.position;
             Vector3 targetPos = target.transform.position;
             
