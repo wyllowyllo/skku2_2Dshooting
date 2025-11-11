@@ -20,6 +20,8 @@ using UnityEngine;
     public float BoardBottomY { get => _boardBottomY;}
     public float BoardWidth { get => _boardWidth; }
     public float BoardHeight { get => _boardHeight;}
+    
+    public Vector2 BoardCenter { get => new Vector2(_boardWidth/2f, _boardHeight/2f);}
 
     private void Awake()
     {

@@ -7,11 +7,12 @@ public enum EBulletType
     BT_MINI=2,
     BT_S=3,
     BT_CYCLON=4,
+   
 }
 public class Bullet : MonoBehaviour
 {
     [Header("기본 스텟")]
-    [SerializeField] private EBulletType _bulletType;
+    [SerializeField] protected EBulletType bulletType;
     [SerializeField] protected float bulletDamage;
     [SerializeField] protected float bulletSpeed;
     [SerializeField] protected float firstBulletSpeed = 1f;
