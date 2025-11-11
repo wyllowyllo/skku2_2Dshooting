@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   increment: 1
+  itemGetEffectPrefab: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
 --- !u!114 &-1296298713297830730
 MonoBehaviour:
   m_ObjectHideFlags: 0

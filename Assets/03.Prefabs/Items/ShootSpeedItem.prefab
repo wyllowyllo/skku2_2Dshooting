@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 2
   increment: 0.1
+  itemGetEffectPrefab: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
 --- !u!60 &5289547413696132153
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -197,5 +198,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitTime: 2
   _duration: 1
-  _distanceFactorFromStart: 3
-  _distanceFactorFromTarget: 3
+  _ctrlPointDistanceFromStart: 3
+  _ctrlPointDistanceFromTarget: 3
+  _randomXMin: -1
+  _randomXMax: 1
+  _randomYMin: -0.15
+  _randomYMax: 1
