@@ -28,7 +28,7 @@ public class TraceMovement : Movement
         Vector2 nextPos = dir * moveSpeed * Time.deltaTime;
 
 
-        float rotateAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float rotateAngle = (Mathf.PI/2 + Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotateAngle);
         transform.position = currentPos + nextPos;
     }
