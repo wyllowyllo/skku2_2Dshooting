@@ -21,7 +21,7 @@ using UnityEngine;
     public float BoardWidth { get => _boardWidth; }
     public float BoardHeight { get => _boardHeight;}
     
-    public Vector2 BoardCenter { get => new Vector2(_boardWidth/2f, _boardHeight/2f);}
+    public Vector2 BoardCenter { get => Camera.main.transform.position;}
 
     private void Awake()
     {

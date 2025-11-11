@@ -22,23 +22,24 @@ public class Boom : MonoBehaviour
     private void Start()
     {
         _lifeCoolTime = 0f;
-        _fxCoolTime = _fxPopUpInterval;
+        _fxCoolTime = 0f;
     }
     private void Update()
     {
-        if( _lifeCoolTime >= _existTime )
-            Destroy(gameObject);
         
-        Timer();
+        _lifeCoolTime += Time.deltaTime;
+        _fxCoolTime += Time.deltaTime;
+
+        if (_lifeCoolTime >= _existTime)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         PopFx();
     }
 
-    private void Timer()
-    {
-        _lifeCoolTime += Time.deltaTime;
-        _fxCoolTime += Time.deltaTime;
-        
-    }
+    
 
     private void PopFx()
     {

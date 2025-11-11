@@ -8,7 +8,8 @@ public class BackgroundScroll : MonoBehaviour
 
     private void Start()
     {
-        _backgroundMaterial = GetComponent<Renderer>().material;
+        Renderer renderer = GetComponent<Renderer>();
+        _backgroundMaterial = renderer.material;
     }
 
     private void Update()

@@ -10,7 +10,7 @@ public enum EItemType
 }
 public abstract class ItemBase:MonoBehaviour
 {
-    [Header(("아이템 타입 &  효과 증분"))]
+    [Header("아이템 타입 &  효과 증분")]
     [SerializeField] protected EItemType itemType;
     [SerializeField] protected float increment = 1.0f;
     
@@ -27,6 +27,7 @@ public abstract class ItemBase:MonoBehaviour
             return;
 
         ApplyEffect(collision.gameObject);
+        
         PlayVisualEffect();
 
         Destroy(gameObject);

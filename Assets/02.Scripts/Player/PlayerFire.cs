@@ -68,7 +68,7 @@ public class PlayerFire : MonoBehaviour
     {
         if (!(_input.Boom) || _boomPrefab == null ) return;
 
-        Vector2 boomPos =Vector2.zero;
+        Vector2 boomPos = BoardBounds.Instance.BoardCenter;
         Instantiate(_boomPrefab, boomPos, Quaternion.identity);
     }
     public void FireRateUp(float increment)
