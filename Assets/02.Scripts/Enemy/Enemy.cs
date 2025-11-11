@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
 
     [Header("플래그 변수")]
     private bool _isDead = false;
+    
+    [Header("폭발 프리펩")]
+    [SerializeField] private GameObject _explosionPrefab;
 
     private DropItem _dropItem;
     private Animator _animator;
@@ -44,11 +47,17 @@ public class Enemy : MonoBehaviour
             if (_dropItem != null)
                 _dropItem.Drop();
 
-            
+            MakeExplosionEffect();
             Destroy(gameObject);
         }
     }
 
+    private void MakeExplosionEffect()
+    {
+        if (_explosionPrefab == null) return;
+        
+        Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;

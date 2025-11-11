@@ -10,10 +10,14 @@ public enum EItemType
 }
 public abstract class ItemBase:MonoBehaviour
 {
+    [Header(("아이템 타입 &  효과 증분"))]
     [SerializeField] protected EItemType itemType;
     [SerializeField] protected float increment = 1.0f;
-    [SerializeField] protected const string targetTag = "Player";
-  
+    
+    [Header("아이템 획득 이펙트 프리펩")]
+    [SerializeField] protected GameObject itemGetEffectPrefab;
+    
+    protected const string targetTag = "Player";
     
     protected abstract void ApplyEffect(GameObject target);
    
@@ -23,9 +27,16 @@ public abstract class ItemBase:MonoBehaviour
             return;
 
         ApplyEffect(collision.gameObject);
-
+        PlayVisualEffect();
 
         Destroy(gameObject);
+    }
+
+    protected void PlayVisualEffect()
+    {
+        if (itemGetEffectPrefab == null) return;
+        
+        Instantiate(itemGetEffectPrefab, transform.position, Quaternion.identity);
     }
 
    

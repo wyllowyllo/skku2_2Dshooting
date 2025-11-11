@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 1
   increment: 1
+  itemGetEffectPrefab: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
 --- !u!114 &-5174554343039729701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +120,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitTime: 2
   _duration: 1
-  _distanceFactorFromStart: 3
-  _distanceFactorFromTarget: 3
+  _ctrlPointDistanceFromStart: 3
+  _ctrlPointDistanceFromTarget: 3
+  _randomXMin: -1
+  _randomXMax: 1
+  _randomYMin: -0.15
+  _randomYMax: 1
 --- !u!50 &1779064647200305537
 Rigidbody2D:
   serializedVersion: 5
