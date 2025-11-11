@@ -27,4 +27,6 @@ public class InputController : MonoBehaviour
     public bool AutoMode => Input.GetKey(KeyCode.Alpha1);
     
     public bool ManualMode => Input.GetKey(KeyCode.Alpha2);
+    
+    public bool Boom => Input.GetKeyDown(KeyCode.Alpha3);
 }
