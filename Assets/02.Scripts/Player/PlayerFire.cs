@@ -16,6 +16,7 @@ public class PlayerFire : MonoBehaviour
     [Header("총알 프리펩")]
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _miniBulletPrefab;
+    [SerializeField] private GameObject _boomPrefab;
 
     [Header("총구")]
     [SerializeField] private Transform _firePositionL;
@@ -42,19 +43,19 @@ public class PlayerFire : MonoBehaviour
     {
         if (_input == null) return;
         
+        //공격 상태(쿨타임, 공격 모드( 관리
        FireCoolTimer();
        SwitchAtkMode();
-
-
-        if (_cooldownTime >= _fireRate)
-        { 
-            Fire();
-        }
        
+       //공격 로직
+       Fire();
+       Boom();
     }
 
     private void Fire()
     {
+        if (_cooldownTime < _fireRate) return;
+            
         
         if (_input.Fire || _attackMode == AttackMode.ATK_AUTO)
         {
@@ -62,7 +63,14 @@ public class PlayerFire : MonoBehaviour
             _cooldownTime = 0f;
         }
     }
-   
+
+    private void Boom()
+    {
+        if (!(_input.Boom) || _boomPrefab == null ) return;
+
+        Vector2 boomPos = BoardBounds.Instance.BoardCenter; 
+        Instantiate(_boomPrefab, boomPos, Quaternion.identity);
+    }
     public void FireRateUp(float increment)
     {
         _fireRate -= increment;
