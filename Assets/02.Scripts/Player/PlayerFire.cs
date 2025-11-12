@@ -64,7 +64,7 @@ public class PlayerFire : MonoBehaviour
         if (_input.Fire || _attackMode == AttackMode.ATK_AUTO)
         {
             // 사운드 재생
-            _fireSound?.Play();
+           PlaySFX();
             
             // 총알 생성
             MakeBullets();
@@ -72,6 +72,10 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
+    private void PlaySFX()
+    {
+        _fireSound?.Play();
+    }
     private void Boom()
     {
         if (!(_input.Boom) || _boomPrefab == null ) return;
