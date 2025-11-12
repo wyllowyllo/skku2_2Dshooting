@@ -67,13 +67,13 @@ public class ScoreManager : MonoBehaviour
         _userData.BestScore = _bestScore;
         string user = JsonUtility.ToJson(_userData);
         PlayerPrefs.SetString(ScoreKey, user);
-       
+        PlayerPrefs.Save();
     }
 
     private void Load()
     {
         
-        
+       
         if (PlayerPrefs.HasKey(ScoreKey))
         {
             string user = PlayerPrefs.GetString(ScoreKey);
