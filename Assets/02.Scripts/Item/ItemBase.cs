@@ -17,28 +17,33 @@ public abstract class ItemBase:MonoBehaviour
     [Header("아이템 획득 이펙트 프리펩")]
     [SerializeField] protected GameObject itemGetEffectPrefab;
     
+    
     protected const string targetTag = "Player";
     
     protected abstract void ApplyEffect(GameObject target);
    
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag(targetTag))
-            return;
+        if (!collision.CompareTag(targetTag))  return;
+           
 
         ApplyEffect(collision.gameObject);
         
         PlayVisualEffect();
-
+        
         Destroy(gameObject);
     }
 
     protected void PlayVisualEffect()
     {
+        //TODO : 파티클 생성위치를 플레이어 위치로 
+        
         if (itemGetEffectPrefab == null) return;
         
         Instantiate(itemGetEffectPrefab, transform.position, Quaternion.identity);
     }
+
+  
 
    
 }
