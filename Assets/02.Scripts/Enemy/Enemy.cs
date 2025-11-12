@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
 
         MakeExplosionEffect();
        
-        _scoreManager.AddScore(_killScore); 
+        _scoreManager?.AddScore(_killScore); 
     }
 
    

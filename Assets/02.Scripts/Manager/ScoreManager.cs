@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text _currentScoreTextUI;
     
     // - 현재 점수를 기억할 변수
-    private float _currentScore = 0;
+    private int _currentScore = 0;
 
     private void Start()
     {
@@ -32,6 +32,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = string.Format("현재 점수 : {0} 점", _currentScore) ;
+        _currentScoreTextUI.text = $"현재 점수 : {_currentScore} 점";
     }
 }
