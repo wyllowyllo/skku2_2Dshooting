@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public enum EEnemyType
 {
@@ -13,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EEnemyType _enemyType;
     [SerializeField] private float _damage = 1f;
     [SerializeField] private float _health = 100f;
-    
+    [SerializeField] private int _killScore = 100;
 
     [Header("플래그 변수")]
     private bool _isDead = false;
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
     [Header("폭발 프리펩")]
     [SerializeField] private GameObject _explosionPrefab;
 
+    private ScoreManager _scoreManager;
     private DropItem _dropItem;
     private Animator _animator;
     
@@ -29,6 +31,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        _scoreManager = FindAnyObjectByType<ScoreManager>();
         _dropItem = GetComponent<DropItem>();
         _animator = GetComponent<Animator>();
     }
@@ -42,16 +45,25 @@ public class Enemy : MonoBehaviour
         
         if(_health<=0)
         {
-            _isDead = true;
-
-            if (_dropItem != null)
-                _dropItem.Drop();
-
-            MakeExplosionEffect();
+            
+            Death();
             Destroy(gameObject);
         }
     }
 
+    private void Death()
+    {
+        _isDead = true;
+        
+        if (_dropItem != null)
+            _dropItem.Drop();
+
+        MakeExplosionEffect();
+       
+        _scoreManager.AddScore(_killScore); 
+    }
+
+   
     private void MakeExplosionEffect()
     {
         if (_explosionPrefab == null) return;
