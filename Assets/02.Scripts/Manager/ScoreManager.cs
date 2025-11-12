@@ -44,8 +44,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = $"현재 점수 : {_currentScore} 점";
-        _bestScoreTextUI.text = $"최고 점수 : {_bestScore} 점";
+        _currentScoreTextUI.text = string.Format("최고 점수 : {0:n0}", _currentScore);
+        _bestScoreTextUI.text = string.Format("현재 점수 : {0:n0}", _bestScore);
     }
 
     private void Save()
