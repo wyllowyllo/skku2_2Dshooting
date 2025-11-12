@@ -11,27 +11,64 @@ public class ScoreManager : MonoBehaviour
     // 규칙 : UI요소는 항상 변수명 뒤에 UI 붙인다.
     // SerializeField : 필드를 유니티가 이해할 수 있게끔 직렬화 한다.
     [SerializeField] private Text _currentScoreTextUI;
+    [SerializeField] private Text _bestScoreTextUI;
+    
+    // 텍스트 애니메이터
+    private TextScaleAnimator _currentScoreAnimator;
+    private TextScaleAnimator _bestScoreAnimator;
     
     // - 현재 점수를 기억할 변수
-    private float _currentScore = 0;
-
+    private int _currentScore = 0;
+    private int _bestScore = 0;
+    private const string ScoreKey = "Score";
+    
     private void Start()
     {
+        _currentScoreAnimator = _currentScoreTextUI?.GetComponent<TextScaleAnimator>();
+        _bestScoreAnimator = _bestScoreTextUI?.GetComponent<TextScaleAnimator>();
+       
+        Load();
         Refresh();
-
     }
+    
 
+    // 1. 하나의 메서드는 한 가지 일만 잘 하면 된다.
+    // 2. 추상화 수준을 똑같이 해라
+    
     public void AddScore(in int score)
     {
         if (score <= 0) return;
 
        
         _currentScore += score;
+        _currentScoreAnimator?.PlayScaleAnimation();
+        
+        if (_bestScore < _currentScore)
+        {
+            _bestScore = _currentScore;
+            _bestScoreAnimator?.PlayScaleAnimation();
+        }
+        
+        
         Refresh();
+        Save();
     }
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = string.Format("현재 점수 : {0} 점", _currentScore) ;
+        _currentScoreTextUI.text = string.Format("최고 점수 : {0:n0}", _currentScore);
+        _bestScoreTextUI.text = string.Format("현재 점수 : {0:n0}", _bestScore);
     }
+
+    private void Save()
+    {
+        PlayerPrefs.SetInt(ScoreKey, _bestScore);
+    }
+
+    private void Load()
+    {
+        _currentScore = 0;
+        _bestScore = PlayerPrefs.GetInt(ScoreKey, 0);
+    }
+ 
 }
