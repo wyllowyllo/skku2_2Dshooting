@@ -13,15 +13,21 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text _currentScoreTextUI;
     [SerializeField] private Text _bestScoreTextUI;
     
+    // 텍스트 애니메이터
+    private TextScaleAnimator _currentScoreAnimator;
+    private TextScaleAnimator _bestScoreAnimator;
+    
     // - 현재 점수를 기억할 변수
     private int _currentScore = 0;
     private int _bestScore = 0;
     private const string ScoreKey = "Score";
-  
+    
     private void Start()
     {
+        _currentScoreAnimator = _currentScoreTextUI?.GetComponent<TextScaleAnimator>();
+        _bestScoreAnimator = _bestScoreTextUI?.GetComponent<TextScaleAnimator>();
+       
         Load();
-        
         Refresh();
     }
     
@@ -35,10 +41,16 @@ public class ScoreManager : MonoBehaviour
 
        
         _currentScore += score;
-        if(_bestScore < _currentScore) _bestScore = _currentScore;
+        _currentScoreAnimator?.PlayScaleAnimation();
+        
+        if (_bestScore < _currentScore)
+        {
+            _bestScore = _currentScore;
+            _bestScoreAnimator?.PlayScaleAnimation();
+        }
+        
         
         Refresh();
-        
         Save();
     }
 
