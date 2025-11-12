@@ -11,11 +11,13 @@ public class ScoreManager : MonoBehaviour
     // 규칙 : UI요소는 항상 변수명 뒤에 UI 붙인다.
     // SerializeField : 필드를 유니티가 이해할 수 있게끔 직렬화 한다.
     [SerializeField] private Text _currentScoreTextUI;
+    [SerializeField] private Text _bestScoreTextUI;
     
     // - 현재 점수를 기억할 변수
     private int _currentScore = 0;
+    private int _bestScore = 0;
     private const string ScoreKey = "Score";
-    
+  
     private void Start()
     {
         Load();
@@ -33,6 +35,8 @@ public class ScoreManager : MonoBehaviour
 
        
         _currentScore += score;
+        if(_bestScore < _currentScore) _bestScore = _currentScore;
+        
         Refresh();
         
         Save();
@@ -41,16 +45,18 @@ public class ScoreManager : MonoBehaviour
     private void Refresh()
     {
         _currentScoreTextUI.text = $"현재 점수 : {_currentScore} 점";
+        _bestScoreTextUI.text = $"최고 점수 : {_bestScore} 점";
     }
 
     private void Save()
     {
-        PlayerPrefs.SetInt(ScoreKey, _currentScore);
+        PlayerPrefs.SetInt(ScoreKey, _bestScore);
     }
 
     private void Load()
     {
-        _currentScore = PlayerPrefs.GetInt(ScoreKey, 0);
+        _currentScore = 0;
+        _bestScore = PlayerPrefs.GetInt(ScoreKey, 0);
     }
  
 }
