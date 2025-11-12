@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,17 +15,20 @@ public class ScoreManager : MonoBehaviour
     // 텍스트 애니메이터
     private TextScaleAnimator _currentScoreAnimator;
     private TextScaleAnimator _bestScoreAnimator;
+
+    //유저 데이터
+    private UserData _userData;
     
     // - 현재 점수를 기억할 변수
     private int _currentScore = 0;
     private int _bestScore = 0;
     private const string ScoreKey = "Score";
-    
+  
     private void Start()
     {
         _currentScoreAnimator = _currentScoreTextUI?.GetComponent<TextScaleAnimator>();
         _bestScoreAnimator = _bestScoreTextUI?.GetComponent<TextScaleAnimator>();
-       
+        
         Load();
         Refresh();
     }
@@ -56,19 +58,34 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = string.Format("최고 점수 : {0:n0}", _currentScore);
-        _bestScoreTextUI.text = string.Format("현재 점수 : {0:n0}", _bestScore);
+        _currentScoreTextUI.text = string.Format("현재 점수 : {0:n0}", _currentScore);
+        _bestScoreTextUI.text = string.Format("최고 점수 : {0:n0}", _bestScore);
     }
 
     private void Save()
     {
-        PlayerPrefs.SetInt(ScoreKey, _bestScore);
+        _userData.BestScore = _bestScore;
+        string user = JsonUtility.ToJson(_userData);
+        PlayerPrefs.SetString(ScoreKey, user);
+       
     }
 
     private void Load()
     {
+        
+        
+        if (PlayerPrefs.HasKey(ScoreKey))
+        {
+            string user = PlayerPrefs.GetString(ScoreKey);
+            _userData = JsonUtility.FromJson<UserData>(user);
+        }
+        else
+        {
+            _userData = new  UserData();
+        }
+        
         _currentScore = 0;
-        _bestScore = PlayerPrefs.GetInt(ScoreKey, 0);
+        _bestScore = _userData.BestScore;
     }
  
 }
