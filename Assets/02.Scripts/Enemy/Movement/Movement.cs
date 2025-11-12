@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public abstract class  Movement: MonoBehaviour
+public abstract class  Movement : MonoBehaviour
 {
     [Header("방향&속도")]
     [SerializeField] protected float moveSpeed = 1f;

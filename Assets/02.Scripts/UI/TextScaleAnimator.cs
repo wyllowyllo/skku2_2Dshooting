@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class TextScaleAnimator : MonoBehaviour
 {
@@ -12,8 +12,7 @@ public class TextScaleAnimator : MonoBehaviour
     private Text _targetText;
     
     private Vector3 _originScale = Vector3.one;
-    private float _timer = 0f;
-    private Coroutine _prevCoroutine = null ;
+    private Tween _prevTween = null ;
 
     private void Start()
     {
@@ -30,40 +29,21 @@ public class TextScaleAnimator : MonoBehaviour
     {
         if (_targetText == null) return;
         
-        _timer = 0f;
+        _prevTween?.Kill();
+        
+        _targetText.transform.localScale = _originScale;
 
-        if (_prevCoroutine != null)
-        {
-            StopCoroutine(_prevCoroutine);
-            _targetText.transform.localScale = _originScale;
-        }
-        _prevCoroutine = StartCoroutine(ScaleAnimationRoutine());
+        _targetText.transform
+            .DOScale(_originScale * _upScaleFactor, _scaleDuration)
+            .SetEase(Ease.OutQuad) //초반에 빠르게 커지고, 끝에는 좀 느리게 커짐
+            .OnComplete(() =>
+                {
+                    _targetText.transform
+                        .DOScale(_originScale, _scaleDuration)
+                        .SetEase(Ease.InQuad); //초반에 느리게 작아지고, 끝에는 좀 빠르게 작아짐
+                }
+            );
     }
-
-    private IEnumerator ScaleAnimationRoutine()
-    {
-        Vector3 originScale = _targetText.transform.localScale;
-        Vector3 targetScale = _targetText.transform.localScale*_upScaleFactor;
-        
-        // 업스케일
-        while (_timer < _scaleDuration)
-        {
-            _timer += Time.deltaTime;
-            _targetText.transform.localScale = Vector3.Lerp(originScale, targetScale, _timer / _scaleDuration);
-            yield return null;
-        }
-        
-        // 다시 원래 크기로
-        _timer = 0f;
-        while (_timer < _scaleDuration)
-        {
-            _timer += Time.deltaTime;
-            _targetText.transform.localScale = Vector3.Lerp(targetScale, originScale, _timer / _scaleDuration);
-            yield return null;
-        }
-        
-        _targetText.transform.localScale = originScale; 
-        _prevCoroutine = null;
-    }
+    
 
 }
