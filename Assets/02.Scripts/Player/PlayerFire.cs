@@ -28,9 +28,13 @@ public class PlayerFire : MonoBehaviour
     [SerializeField] private float _fireRate = 0.6f;
     [SerializeField] private float _minFireRate = 0.1f;
     
+    [Header(("사운드"))]
+    [SerializeField] private AudioSource _fireSound;
+    
+    
     [Header("플레이어 입력 처리 모듈")]
     private InputController _input;
-
+    
     private float _cooldownTime = 0f;
 
 
@@ -59,6 +63,10 @@ public class PlayerFire : MonoBehaviour
         
         if (_input.Fire || _attackMode == AttackMode.ATK_AUTO)
         {
+            // 사운드 재생
+            _fireSound?.Play();
+            
+            // 총알 생성
             MakeBullets();
             _cooldownTime = 0f;
         }
