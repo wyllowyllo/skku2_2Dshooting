@@ -2,9 +2,12 @@
 
 public class Player : MonoBehaviour
 {
+    [Header("체력")]
     [SerializeField] private float _health = 3f;
     [SerializeField] private float _maxHealth=3f;
-
+    
+    [Header("VFX")]
+    [SerializeField] private GameObject _deadVfxPrefab;
     private void Start()
     {
         _health = _maxHealth;
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour
 
         if (_health <= 0)
         {
+            PlayDeadVFX();
             Destroy(gameObject);
         }
     }
@@ -24,6 +28,12 @@ public class Player : MonoBehaviour
         _health += increment;
         _health = Mathf.Min(_health, _maxHealth);
     }
-    
+
+    private void PlayDeadVFX()
+    {
+        if (_deadVfxPrefab == null) return;
+        
+        Instantiate(_deadVfxPrefab, transform.position, Quaternion.identity);
+    }
    
 }

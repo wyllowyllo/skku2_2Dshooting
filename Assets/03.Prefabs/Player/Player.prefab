@@ -280,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 3
   _maxHealth: 3
+  _deadVfxPrefab: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
 --- !u!114 &2759449919180906850
 MonoBehaviour:
   m_ObjectHideFlags: 0
