@@ -8,6 +8,8 @@ public class EnemyCircleBullet : MonoBehaviour
     [SerializeField] private float _bulletDamage;
     [SerializeField] private float _bulletSpeed;
 
+  
+    
     private Transform _target;
     private Vector2 _direction;
 

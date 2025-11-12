@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     
     [Header("폭발 프리펩")]
     [SerializeField] private GameObject _explosionPrefab;
-
+    
     private ScoreManager _scoreManager;
     private DropItem _dropItem;
     private Animator _animator;
@@ -70,6 +70,8 @@ public class Enemy : MonoBehaviour
         
         Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
     }
+
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
