@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 public enum EBulletType
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        bulletSpeed = firstBulletSpeed;
+        Init();
     }
     private void Update()
     {
@@ -30,6 +31,10 @@ public class Bullet : MonoBehaviour
         
     }
 
+    private void Init()
+    {
+        bulletSpeed = firstBulletSpeed; ;
+    }
     protected virtual void BulletMove()
     {
         //방향을 구한다
@@ -44,6 +49,10 @@ public class Bullet : MonoBehaviour
         Vector2 newPosition = position + direction * bulletSpeed * Time.deltaTime;
         transform.position = newPosition;
 
+    }
+    private void OnEnable()
+    {
+        Init();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
