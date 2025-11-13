@@ -102,5 +102,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6520040170852885122, guid: f11e4b393c1565c4bb5da1b2f231e44e, type: 3}
   shotInterval: 2
-  followDelay: 30
+  followDelay: 100
   target: {fileID: 0}

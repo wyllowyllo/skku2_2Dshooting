@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ScoreManager : MonoBehaviour
 {
+    private static ScoreManager _instance = null;
     // 목표 : 적을 죽일 때마다 점수를 올리고, 현재 점수를 UI에 표시하고 싶다
     
     // 필요 속성
@@ -31,8 +32,19 @@ public class ScoreManager : MonoBehaviour
     private int _bestScore = 0;
     private const string ScoreKey = "Score";
 
+    public static ScoreManager Instance => _instance;
+    
+    
     private void Awake()
     {
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        _instance = this;
+        
         _saveModule = new SaveModule(ScoreKey);
     }
 
