@@ -4,11 +4,11 @@ public class BulletFactory : MonoBehaviour
 {
     private static BulletFactory _instance = null;
     
-    [Header("총알 프리펩")] 
+    [Header("플레이어 총알 프리펩")] 
     [SerializeField] private GameObject _bulletPrefab;
-
     [SerializeField] private GameObject _subBulletPrefab;
-
+    [SerializeField] private GameObject _boomPrefab;
+    
     public static BulletFactory Instance => _instance;
     
     private void Awake()
@@ -33,5 +33,10 @@ public class BulletFactory : MonoBehaviour
     public GameObject MakeSubBullet(Vector3 position)
     {
         return Instantiate(_subBulletPrefab, position, Quaternion.identity,transform);
+    }
+
+    public GameObject MakeBoom(Vector3 position)
+    {
+        return Instantiate(_boomPrefab, position, Quaternion.identity, transform);
     }
 }

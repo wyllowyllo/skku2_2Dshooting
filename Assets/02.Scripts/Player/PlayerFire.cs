@@ -11,11 +11,7 @@ public class PlayerFire : MonoBehaviour
     //목표 : 스페이스바를 누르면 총알을 만들어서 발사하고 싶다
     [Header("공격 모드")]
     private AttackMode _attackMode = AttackMode.ATK_MANUAL;
-
-    //필요 속성
-    [Header("총알 프리펩")]
-    [SerializeField] private GameObject _boomPrefab;
-
+    
     [Header("총구")]
     [SerializeField] private Transform _firePositionL;
     [SerializeField] private Transform _firePositionR;
@@ -76,10 +72,10 @@ public class PlayerFire : MonoBehaviour
     }
     private void Boom()
     {
-        if (!(_input.Boom) || _boomPrefab == null ) return;
+        if (!(_input.Boom)) return;
 
-        Vector2 boomPos = BoardBounds.Instance.BoardCenter;
-        Instantiate(_boomPrefab, boomPos, Quaternion.identity);
+        Vector3 boomPos = BoardBounds.Instance.BoardCenter;
+        BulletFactory.Instance.MakeBoom(boomPos);
     }
     public void FireRateUp(float increment)
     {
