@@ -27,11 +27,11 @@ public class BulletFactory : MonoBehaviour
         // 필요하다면 여기서 생성 이펙트도 생성하고
         // 필요하다면 인자값으로 데미지도 받아서 넘겨주고..
         
-        return Instantiate(_bulletPrefab, position, Quaternion.identity);
+        return Instantiate(_bulletPrefab, position, Quaternion.identity, transform);
     }
 
     public GameObject MakeSubBullet(Vector3 position)
     {
-        return Instantiate(_subBulletPrefab, position, Quaternion.identity);
+        return Instantiate(_subBulletPrefab, position, Quaternion.identity,transform);
     }
 }
