@@ -32,9 +32,33 @@ public class PlayerBulletFactory : MonoBehaviour
         
         PoolInit();
     }
+
+
+    public GameObject MakeBullet(EBulletType bulletType, Vector3 position)
+    {
+        GameObject bulletObj = null;
+
+        switch (bulletType)
+        {
+            case EBulletType.Basic:
+                bulletObj = MakeBasicBullet(position);
+                break;
+            case EBulletType.Sub:
+                bulletObj = MakeSubBullet(position);
+                break;
+            
+            
+            
+            default:
+                bulletObj = MakeBasicBullet(position);
+                break;
+        }
+
+        return bulletObj;
+    }
     
-    
-    public GameObject MakeBullet(Vector3 position)
+
+    private GameObject MakeBasicBullet(Vector3 position)
     {
         GameObject bulletObj = null;
         
@@ -59,8 +83,7 @@ public class PlayerBulletFactory : MonoBehaviour
       
         return bulletObj;
     }
-
-    public GameObject MakeSubBullet(Vector3 position)
+    private GameObject MakeSubBullet(Vector3 position)
     {
         GameObject bulletObj = null;
         

@@ -86,11 +86,11 @@ public class PlayerFire : MonoBehaviour
     private void MakeBullets()
     {
         //클래스 -> 객체(속성+기능) -> 메모리에 실제로 로드된 객체를 인스턴스라고 한다.
-        PlayerBulletFactory.Instance.MakeBullet(_firePositionL.position);
-        PlayerBulletFactory.Instance.MakeBullet(_firePositionR.position);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Basic, _firePositionL.position);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Basic, _firePositionR.position);
         
-        PlayerBulletFactory.Instance.MakeSubBullet(_firePositionSubL.position);
-        PlayerBulletFactory.Instance.MakeSubBullet(_firePositionSubR.position);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Sub, _firePositionSubL.position);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Sub, _firePositionSubR.position);
     }
 
     private void SwitchAtkMode()

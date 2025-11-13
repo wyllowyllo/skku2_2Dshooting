@@ -4,11 +4,10 @@ using UnityEngine;
 
 public enum EBulletType
 {
-    Normal=0,
-    Sub=1,
-    Sin=2,
-    Cyclon=3,
-    Micro=4
+    Basic = 0,
+    Sub = 1,
+    Cyclon = 2,
+    Micro = 4
 }
 public class Bullet : MonoBehaviour
 {
