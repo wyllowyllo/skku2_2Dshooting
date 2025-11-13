@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// 유저 최고 점수 데이터
+/// </summary>
 [Serializable]
 public class UserData
 {

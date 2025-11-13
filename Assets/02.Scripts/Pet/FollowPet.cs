@@ -1,8 +1,11 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pet : PetBase
+/// <summary>
+/// 타겟의 이전 위치 기록을 따라다니며 적을 공격하는 펫입니다.
+/// </summary>
+public class FollowPet : PetBase
 {
     private float _timer = 0f;
     private Vector2 _targetPosition = Vector2.zero;
@@ -27,7 +30,7 @@ public class Pet : PetBase
             _timer = 0f;
         }
 
-        LookatTarget();
+        RecordTargetPosition();
         FollowTarget();
     }
 
@@ -35,7 +38,7 @@ public class Pet : PetBase
     {
         target = targetTr;
     }
-    private void LookatTarget()
+    private void RecordTargetPosition()
     {
         if (target == null) return;
         

@@ -1,7 +1,10 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 모든 펫의 기본 동작을 정의하는 추상 클래스
+/// </summary>
 public abstract class PetBase : MonoBehaviour
 {
     [Header("총알 프리펩")]

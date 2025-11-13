@@ -1,6 +1,11 @@
+using System;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 유저 점수 데이터,점수 UI 관리 클래스
+/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     // 목표 : 적을 죽일 때마다 점수를 올리고, 현재 점수를 UI에 표시하고 싶다
@@ -16,14 +21,21 @@ public class ScoreManager : MonoBehaviour
     private TextScaleAnimator _currentScoreAnimator;
     private TextScaleAnimator _bestScoreAnimator;
 
-    //유저 데이터
+    //데이터 저장/로드 시스템
+    private SaveModule _saveModule;
     private UserData _userData;
+  
     
     // - 현재 점수를 기억할 변수
     private int _currentScore = 0;
     private int _bestScore = 0;
     private const string ScoreKey = "Score";
-  
+
+    private void Awake()
+    {
+        _saveModule = new SaveModule(ScoreKey);
+    }
+
     private void Start()
     {
         _currentScoreAnimator = _currentScoreTextUI?.GetComponent<TextScaleAnimator>();
@@ -58,31 +70,19 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = string.Format("현재 점수 : {0:n0}", _currentScore);
-        _bestScoreTextUI.text = string.Format("최고 점수 : {0:n0}", _bestScore);
+        _currentScoreTextUI.text = $"현재 점수 : {_currentScore:n0}";
+        _bestScoreTextUI.text = $"최고 점수 : {_bestScore:n0}";
     }
 
     private void Save()
     {
         _userData.BestScore = _bestScore;
-        string user = JsonUtility.ToJson(_userData);
-        PlayerPrefs.SetString(ScoreKey, user);
-        PlayerPrefs.Save();
+        _saveModule.Save(_userData);
     }
 
     private void Load()
     {
-        
-       
-        if (PlayerPrefs.HasKey(ScoreKey))
-        {
-            string user = PlayerPrefs.GetString(ScoreKey);
-            _userData = JsonUtility.FromJson<UserData>(user);
-        }
-        else
-        {
-            _userData = new  UserData();
-        }
+        _userData = _saveModule.Load();
         
         _currentScore = 0;
         _bestScore = _userData.BestScore;
