@@ -75,7 +75,7 @@ public class PlayerFire : MonoBehaviour
         if (!(_input.Boom)) return;
 
         Vector3 boomPos = BoardBounds.Instance.BoardCenter;
-        BulletFactory.Instance.MakeBoom(boomPos);
+        PlayerBulletFactory.Instance.MakeBoom(boomPos);
     }
     public void FireRateUp(float increment)
     {
@@ -86,11 +86,11 @@ public class PlayerFire : MonoBehaviour
     private void MakeBullets()
     {
         //클래스 -> 객체(속성+기능) -> 메모리에 실제로 로드된 객체를 인스턴스라고 한다.
-        BulletFactory.Instance.MakeBullet(_firePositionL.position);
-        BulletFactory.Instance.MakeBullet(_firePositionR.position);
+        PlayerBulletFactory.Instance.MakeBullet(_firePositionL.position);
+        PlayerBulletFactory.Instance.MakeBullet(_firePositionR.position);
         
-        BulletFactory.Instance.MakeSubBullet(_firePositionSubL.position);
-        BulletFactory.Instance.MakeSubBullet(_firePositionSubR.position);
+        PlayerBulletFactory.Instance.MakeSubBullet(_firePositionSubL.position);
+        PlayerBulletFactory.Instance.MakeSubBullet(_firePositionSubR.position);
     }
 
     private void SwitchAtkMode()

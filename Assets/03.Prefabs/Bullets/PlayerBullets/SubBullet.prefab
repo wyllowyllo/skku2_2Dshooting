@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3552593313958192560}
   - component: {fileID: 5445917213632289833}
   m_Layer: 0
-  m_Name: MiniBullet
+  m_Name: SubBullet
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

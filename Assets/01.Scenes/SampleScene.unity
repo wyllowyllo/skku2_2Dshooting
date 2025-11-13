@@ -317,7 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 8365906012949963582, guid: ab2754d14f5a5be419b0bdf1c43ffa34, type: 3}
   _subBulletPrefab: {fileID: 8365906012949963582, guid: f909c9a5c8c5ac04e9e846053f04ed1f, type: 3}
-  _boomPrefab: {fileID: 4595127796902614939, guid: 634e0a72a9da7614282fdbc09177e818, type: 3}
+  _initPoolSize: 30
 --- !u!4 &363866323
 Transform:
   m_ObjectHideFlags: 0

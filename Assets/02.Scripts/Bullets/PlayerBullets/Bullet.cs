@@ -3,11 +3,11 @@
 
 public enum EBulletType
 {
-    BT_NORMAL=1,
-    BT_MINI=2,
-    BT_S=3,
-    BT_CYCLON=4,
-    BT_MICRO=5
+    Normal=0,
+    Sub=1,
+    Sin=2,
+    Cyclon=3,
+    Micro=4
 }
 public class Bullet : MonoBehaviour
 {
@@ -56,7 +56,7 @@ public class Bullet : MonoBehaviour
         if(enemy != null)
             enemy.Hit(bulletDamage);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     
