@@ -2,11 +2,26 @@ using UnityEngine;
 
 public class BulletFactory : MonoBehaviour
 {
+    private static BulletFactory _instance = null;
+    
     [Header("총알 프리펩")] 
     [SerializeField] private GameObject _bulletPrefab;
 
     [SerializeField] private GameObject _subBulletPrefab;
 
+    public static BulletFactory Instance => _instance;
+    
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        _instance = this;
+    }
+    
     public GameObject MakeBullet(Vector3 position)
     {
         // 필요하다면 여기서 생성 이펙트도 생성하고

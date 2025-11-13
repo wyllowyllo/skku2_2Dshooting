@@ -14,8 +14,6 @@ public class PlayerFire : MonoBehaviour
 
     //필요 속성
     [Header("총알 프리펩")]
-    [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private GameObject _miniBulletPrefab;
     [SerializeField] private GameObject _boomPrefab;
 
     [Header("총구")]
@@ -92,12 +90,11 @@ public class PlayerFire : MonoBehaviour
     private void MakeBullets()
     {
         //클래스 -> 객체(속성+기능) -> 메모리에 실제로 로드된 객체를 인스턴스라고 한다.
-        GameObject bulletObj_1=Instantiate(_bulletPrefab, _firePositionL.position, Quaternion.identity);
-        GameObject bulletObj_2 = Instantiate(_bulletPrefab, _firePositionR.position, Quaternion.identity);
-
-        GameObject miniBulletObj_1 = Instantiate(_miniBulletPrefab, _firePositionSubL.position, Quaternion.identity);
-        GameObject miniBulletObj_2 = Instantiate(_miniBulletPrefab, _firePositionSubR.position, Quaternion.identity);
-
+        BulletFactory.Instance.MakeBullet(_firePositionL.position);
+        BulletFactory.Instance.MakeBullet(_firePositionR.position);
+        
+        BulletFactory.Instance.MakeSubBullet(_firePositionSubL.position);
+        BulletFactory.Instance.MakeSubBullet(_firePositionSubR.position);
     }
 
     private void SwitchAtkMode()
