@@ -8,13 +8,14 @@ public class PlayerBulletFactory : MonoBehaviour
     private static PlayerBulletFactory _instance = null;
     
     [Header("플레이어 총알 프리펩")] 
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private GameObject _basicBulletPrefab;
     [SerializeField] private GameObject _subBulletPrefab;
     
     [Header("풀링")]
     [SerializeField] private int _initPoolSize = 30;
-    private List<GameObject> _bulletList;
-    private List<GameObject> _subBulletList = new List<GameObject>();
+    [SerializeField] private float _poolScaleFactor = 0.5f;
+    private List<GameObject> _basicBulletList;
+    private List<GameObject> _subBulletList;
     public static PlayerBulletFactory Instance => _instance;
     
     private void Awake()
@@ -24,10 +25,10 @@ public class PlayerBulletFactory : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-
         _instance = this;
 
-        _bulletList = new List<GameObject>();
+        
+        _basicBulletList = new List<GameObject>();
         _subBulletList = new List<GameObject>();
         
         PoolInit();
@@ -41,73 +42,48 @@ public class PlayerBulletFactory : MonoBehaviour
         switch (bulletType)
         {
             case EBulletType.Basic:
-                bulletObj = MakeBasicBullet(position);
+                bulletObj = GetIdleBullet(_basicBulletPrefab, _basicBulletList, position);
                 break;
             case EBulletType.Sub:
-                bulletObj = MakeSubBullet(position);
+                bulletObj = GetIdleBullet(_subBulletPrefab, _subBulletList, position);
                 break;
             
             
             
             default:
-                bulletObj = MakeBasicBullet(position);
+                bulletObj = GetIdleBullet(_basicBulletPrefab, _basicBulletList, position);
                 break;
         }
 
         return bulletObj;
     }
-    
 
-    private GameObject MakeBasicBullet(Vector3 position)
+    private GameObject GetIdleBullet(GameObject targetPrefab, List<GameObject> targetList, Vector3 position)
     {
         GameObject bulletObj = null;
-        
-        for (int i = 0; i < _bulletList.Count; i++)
+
+        for (int i = 0; i < targetList.Count; i++)
         {
-            if (_bulletList[i].activeInHierarchy) continue;
-            
-            //Debug.Log(_bulletList[i].name);
-            bulletObj = _bulletList[i];
+            if (targetList[i].activeInHierarchy) continue;
+
+            bulletObj = targetList[i];
             bulletObj.transform.position = position;
             bulletObj.SetActive(true);
-          
+
             return bulletObj;
         }
-
         
         //풀이 부족한 경우
-        int increment = _bulletList.Count / 2;
-        bulletObj = MakePool(_bulletPrefab, _bulletList, increment);
+        int increment = Mathf.Max((int)(targetList.Count * _poolScaleFactor), 1);
+        
+        bulletObj = MakePool(targetPrefab, targetList, increment);
         bulletObj.transform.position = position;
         bulletObj.SetActive(true);
       
         return bulletObj;
     }
-    private GameObject MakeSubBullet(Vector3 position)
-    {
-        GameObject bulletObj = null;
-        
-        for (int i = 0; i < _subBulletList.Count; i++)
-        {
-            if (_subBulletList[i].activeInHierarchy) continue;
-            
-            bulletObj = _subBulletList[i];
-            bulletObj.transform.position = position;
-            bulletObj.SetActive(true);
-            
-            return bulletObj;
-        }
 
-        
-        //풀이 부족한 경우
-        int increment = _subBulletList.Count / 2;
-        bulletObj = MakePool(_subBulletPrefab, _subBulletList, increment);
-        bulletObj.transform.position = position;
-        bulletObj.SetActive(true);
-        
-        return bulletObj;
-    }
-
+   
     public GameObject MakeBoom(Vector3 position)
     {
         return null;
@@ -116,7 +92,7 @@ public class PlayerBulletFactory : MonoBehaviour
     private void PoolInit()
     {
         // 플레이어 기본 총알 오브젝트 풀 생성
-        MakePool(_bulletPrefab, _bulletList, _initPoolSize);
+        MakePool(_basicBulletPrefab, _basicBulletList, _initPoolSize);
         
         // 플레이어  미니 총알 오브젝트 풀 생성
         MakePool(_subBulletPrefab, _subBulletList, _initPoolSize);
@@ -133,7 +109,8 @@ public class PlayerBulletFactory : MonoBehaviour
             targetList.Add(bulletObj);
         }
         
-        return targetList[0]; //풀의 첫번째 인자 반환
+        int lastIndex = targetList.Count - 1;
+        return targetList[lastIndex]; //풀의 마지막 인자 반환
     }
 
    

@@ -20,14 +20,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _straightEnemySpawnRate = 0.7f;
     [SerializeField] private float _traceEnemySpawnRate = 0.3f;
 
-   
+    private EnemyFactory _enemyFactory;
     private float _timer = 0f;
     private int _spawnPointIdx = 0;
-    private int _spawnEnemyIdx = 0;
+    private EEnemyType _spawnEnemyType;
 
     private void Start()
     {
-       
+        _enemyFactory = EnemyFactory.Instance;
         SetSpwanInterval();
     }
 
@@ -65,15 +65,14 @@ public class EnemySpawner : MonoBehaviour
         float spawnRate = Random.Range(0f, 1f);
 
         if(spawnRate <= _straightEnemySpawnRate)
-            _spawnEnemyIdx = (int)EEnemyType.ET_Straight;
+            _spawnEnemyType = EEnemyType.Straight;
         else
-            _spawnEnemyIdx = (int)EEnemyType.ET_Trace;
+            _spawnEnemyType = EEnemyType.Trace;
         
     }
 
     private void SpawnEnemy()
     {
-        Instantiate(_enemyPrefab[_spawnEnemyIdx], _spawnPoints[_spawnPointIdx].position, Quaternion.identity);
-
+        _enemyFactory.MakeEnemy(_spawnEnemyType, _spawnPoints[_spawnPointIdx].position);
     }
 }
