@@ -7,7 +7,7 @@ public enum EBulletType
     BT_MINI=2,
     BT_S=3,
     BT_CYCLON=4,
-   
+    BT_MICRO=5
 }
 public class Bullet : MonoBehaviour
 {
