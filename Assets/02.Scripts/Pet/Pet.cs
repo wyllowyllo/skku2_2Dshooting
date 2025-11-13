@@ -1,13 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pet : PetBase
 {
     private float _timer = 0f;
     private Vector2 _targetPosition = Vector2.zero;
-    private Vector2 _lastTargetPosition = Vector2.zero;
+    
 
-    private const float MinPosDiff = 0.01f;
+    private void Start()
+    {
+        _targetPosRecords = new Queue<Vector2>();
+
+        if (target != null)
+        {
+            _targetPosition= transform.position;
+        }
+    }
+
     private void Update()
     {
         _timer += Time.deltaTime;
@@ -29,7 +39,7 @@ public class Pet : PetBase
     {
         if (target == null) return;
         
-        if (Vector2.Distance(target.position, _lastTargetPosition) > MinPosDiff)
+        if (!_targetPosRecords.Contains(target.position))
         {
             _targetPosRecords.Enqueue(target.position);
         }
@@ -39,6 +49,7 @@ public class Pet : PetBase
         {
             _targetPosition = _targetPosRecords.Dequeue();
         }
+       
     }
     protected override void FollowTarget()
     {
