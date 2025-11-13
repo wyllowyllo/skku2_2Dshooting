@@ -29,18 +29,18 @@ public abstract class ItemBase:MonoBehaviour
 
         ApplyEffect(collision.gameObject);
         
-        PlayVisualEffect();
+        PlayVisualEffect(collision.transform.position);
         
         Destroy(gameObject);
     }
 
-    protected void PlayVisualEffect()
+    protected void PlayVisualEffect(Vector3 createPosition)
     {
         //TODO : 파티클 생성위치를 플레이어 위치로 
         
         if (itemGetEffectPrefab == null) return;
         
-        Instantiate(itemGetEffectPrefab, transform.position, Quaternion.identity);
+        Instantiate(itemGetEffectPrefab, createPosition, Quaternion.identity);
     }
 
   
