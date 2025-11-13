@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
 
         MakeExplosionEffect();
        
-        ScoreManager.Instance.AddScore(_killScore); 
+        ScoreManager.Instance.AddScore(_killScore); // TODO : 적 사망 이벤트 만들고, ScoreManager가 구독하는 방식으로 바꾸기
     }
 
    
