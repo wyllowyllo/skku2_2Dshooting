@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     [Header("폭발 프리펩")]
     [SerializeField] private GameObject _explosionPrefab;
     
-    private ScoreManager _scoreManager;
     private DropItem _dropItem;
     private Animator _animator;
     
@@ -31,7 +30,6 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _scoreManager = FindAnyObjectByType<ScoreManager>();
         _dropItem = GetComponent<DropItem>();
         _animator = GetComponent<Animator>();
     }
@@ -60,7 +58,7 @@ public class Enemy : MonoBehaviour
 
         MakeExplosionEffect();
        
-        _scoreManager?.AddScore(_killScore); 
+        ScoreManager.Instance.AddScore(_killScore); 
     }
 
    
