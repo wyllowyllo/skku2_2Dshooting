@@ -315,8 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318041646601b274281a80cb37c48662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initPoolSize: 0
-  poolScaleFactor: 0
+  initPoolSize: 30
+  poolScaleFactor: 0.5
   _basicBulletPrefab: {fileID: 8365906012949963582, guid: ab2754d14f5a5be419b0bdf1c43ffa34, type: 3}
   _subBulletPrefab: {fileID: 8365906012949963582, guid: f909c9a5c8c5ac04e9e846053f04ed1f, type: 3}
 --- !u!4 &363866323
@@ -996,8 +996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b1605fdff95154eaaf5d24783eeb47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initPoolSize: 0
-  poolScaleFactor: 0
+  initPoolSize: 30
+  poolScaleFactor: 0.5
   _straightEnemyPrefab: {fileID: 1258407495704171720, guid: 3253d155ceb107c4696913bac03b0565, type: 3}
   _chasingEnemyPrefab: {fileID: 2071450668010134402, guid: fca50e809e8657942b6748dc447ea749, type: 3}
   _initPoolSize: 1
@@ -2407,7 +2407,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0ab14112d95c069419bd90ef39fba9b2, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2428,8 +2428,8 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
-  m_PreviewTimeScale: 0
+  m_Time: 0.1
+  m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2438,7 +2438,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.53240734
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2459,17 +2459,17 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0, g: 0.30652237, b: 1, a: 1}
+      key1: {r: 0, g: 0.8584906, b: 0.06997726, a: 1}
+      key2: {r: 0.57834196, g: 0.8120938, b: 0.8820755, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
+      ctime1: 31997
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
@@ -2484,8 +2484,8 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
+      m_ColorSpace: 0
+      m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
