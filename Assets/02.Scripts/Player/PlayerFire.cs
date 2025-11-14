@@ -75,7 +75,7 @@ public class PlayerFire : MonoBehaviour
         if (!(_input.Boom)) return;
 
         Vector3 boomPos = BoardBounds.Instance.BoardCenter;
-        PlayerBulletFactory.Instance.MakeBoom(boomPos);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Boom,boomPos);
     }
     public void FireRateUp(float increment)
     {

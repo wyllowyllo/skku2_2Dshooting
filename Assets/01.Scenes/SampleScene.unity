@@ -315,10 +315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318041646601b274281a80cb37c48662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initPoolSize: 30
+  poolScaleFactor: 0.5
   _basicBulletPrefab: {fileID: 8365906012949963582, guid: ab2754d14f5a5be419b0bdf1c43ffa34, type: 3}
   _subBulletPrefab: {fileID: 8365906012949963582, guid: f909c9a5c8c5ac04e9e846053f04ed1f, type: 3}
-  _initPoolSize: 30
-  _poolScaleFactor: 0.5
+  _boomBulletPrefab: {fileID: 4595127796902614939, guid: 634e0a72a9da7614282fdbc09177e818, type: 3}
 --- !u!4 &363866323
 Transform:
   m_ObjectHideFlags: 0
@@ -996,6 +997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b1605fdff95154eaaf5d24783eeb47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initPoolSize: 30
+  poolScaleFactor: 0.5
   _straightEnemyPrefab: {fileID: 1258407495704171720, guid: 3253d155ceb107c4696913bac03b0565, type: 3}
   _chasingEnemyPrefab: {fileID: 2071450668010134402, guid: fca50e809e8657942b6748dc447ea749, type: 3}
   _initPoolSize: 1

@@ -7,7 +7,8 @@ public enum EBulletType
     Basic = 0,
     Sub = 1,
     Cyclon = 2,
-    Micro = 4
+    Micro = 4,
+    Boom = 5,
 }
 public class Bullet : MonoBehaviour
 {
