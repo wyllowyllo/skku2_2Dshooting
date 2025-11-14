@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 모든 Factory의 추상 클래스
+/// </summary>
 public abstract class FactoryBase : MonoBehaviour
 {
     [Header("풀 설정 변수")]

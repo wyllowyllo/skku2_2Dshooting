@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// 플레이어 총알 풀 담당 팩토리
+/// </summary>
 public class PlayerBulletFactory : FactoryBase
 {
-    private static PlayerBulletFactory _instance = null;
+    private static PlayerBulletFactory s_instance = null;
     
     [Header("플레이어 총알 프리펩")] 
     [SerializeField] private GameObject _basicBulletPrefab;
@@ -14,19 +16,23 @@ public class PlayerBulletFactory : FactoryBase
  
     private List<GameObject> _basicBulletList;
     private List<GameObject> _subBulletList;
-    public static PlayerBulletFactory Instance => _instance;
+    
+    /// <summary>
+    /// PlayerBulletFactory 접근용 프로퍼티
+    /// </summary>
+    public static PlayerBulletFactory Instance => s_instance;
 
     private Dictionary<EBulletType, List<GameObject>> _listDictionary;
     private Dictionary<EBulletType, GameObject> _prefabDictionary;
     
     private void Awake()
     {
-        if (_instance != null)
+        if (s_instance != null)
         {
             Destroy(this.gameObject);
             return;
         }
-        _instance = this;
+        s_instance = this;
 
 
 
@@ -34,7 +40,12 @@ public class PlayerBulletFactory : FactoryBase
         PoolInit();
     }
 
-    
+    /// <summary>
+    /// 총알 생성 요청 시 호출
+    /// </summary>
+    /// <param name="bulletType"> 총알 타입 </param>
+    /// <param name="position"> 생성 위치 </param>
+    /// <returns> 총알 오브젝트 반환 </returns>
     public GameObject MakeBullet(EBulletType bulletType, Vector3 position)
     {
         GameObject bulletObj = null;
@@ -47,7 +58,11 @@ public class PlayerBulletFactory : FactoryBase
         return bulletObj;
     }
 
-    
+    /// <summary>
+    /// 플레이어 폭탄 생성 요청 시 호출
+    /// </summary>
+    /// <param name="position"> 생성 위치 </param>
+    /// <returns></returns>
     public GameObject MakeBoom(Vector3 position)
     {
         return null;
