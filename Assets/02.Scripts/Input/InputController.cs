@@ -4,12 +4,18 @@ using Input=UnityEngine.Input;
 
 public class InputController : MonoBehaviour
 {
+    [SerializeField] private DynamicJoystick _joyStick;
+
+    private bool _fireBtnPressed;
    public Vector2 MoveInput
     {
         get
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
+            /*float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");*/
+            
+            float h = _joyStick.Horizontal;
+            float v = _joyStick.Vertical;
             return new Vector2(h, v).normalized;
         }
     }
@@ -20,7 +26,16 @@ public class InputController : MonoBehaviour
 
     public bool Dash => Input.GetKey(KeyCode.LeftShift);
     
-    public bool Fire => Input.GetKey(KeyCode.Space);
+    public bool Fire
+    {
+        get
+        {
+            bool isFire = _fireBtnPressed || Input.GetKey(KeyCode.Space);
+            _fireBtnPressed = false;
+            return isFire;
+        }
+    }
+   
 
     public bool ResetPosition => Input.GetKey(KeyCode.R);
     
@@ -29,4 +44,9 @@ public class InputController : MonoBehaviour
     public bool ManualMode => Input.GetKey(KeyCode.Alpha2);
     
     public bool Boom => Input.GetKeyDown(KeyCode.Alpha3);
+
+    public void FireButtonPressed()
+    {
+        _fireBtnPressed = true;
+    }
 }
