@@ -50,7 +50,7 @@ public class PlayerFire : MonoBehaviour
        Boom();
     }
 
-    public void Fire()
+    private void Fire()
     {
         if (_cooldownTime < _fireRate) return;
             

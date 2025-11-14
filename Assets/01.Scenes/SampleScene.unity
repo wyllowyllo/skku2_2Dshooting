@@ -1823,9 +1823,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4860265572540433846}
-        m_TargetAssemblyTypeName: PlayerFire, Assembly-CSharp
-        m_MethodName: Fire
+      - m_Target: {fileID: 4860265572540433843}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: FireButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2697,6 +2697,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8283111999867832882, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
+      propertyPath: _joyStick
+      value: 
+      objectReference: {fileID: 762478884}
+    - target: {fileID: 8283111999867832882, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
       propertyPath: _joystick
       value: 
       objectReference: {fileID: 762478884}
@@ -2838,15 +2842,15 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &4860265572540433846 stripped
+--- !u!114 &4860265572540433843 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 232294455092191656, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8283111999867832882, guid: 196efef94f1dec34fa8693337c68b33c, type: 3}
   m_PrefabInstance: {fileID: 4860265572540433828}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4860265572540433829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dded4b174dc92a0469197ce5fe32253d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b3e15e7d7fd652408e0f1a9573b64a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
