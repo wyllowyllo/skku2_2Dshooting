@@ -12,10 +12,12 @@ public class PlayerBulletFactory : FactoryBase
     [Header("플레이어 총알 프리펩")] 
     [SerializeField] private GameObject _basicBulletPrefab;
     [SerializeField] private GameObject _subBulletPrefab;
+    [SerializeField] private GameObject _boomBulletPrefab;
     
  
     private List<GameObject> _basicBulletList;
     private List<GameObject> _subBulletList;
+    private List<GameObject> _boomBulletList;
     
     /// <summary>
     /// PlayerBulletFactory 접근용 프로퍼티
@@ -57,35 +59,28 @@ public class PlayerBulletFactory : FactoryBase
         
         return bulletObj;
     }
-
-    /// <summary>
-    /// 플레이어 폭탄 생성 요청 시 호출
-    /// </summary>
-    /// <param name="position"> 생성 위치 </param>
-    /// <returns></returns>
-    public GameObject MakeBoom(Vector3 position)
-    {
-        return null;
-    }
+    
 
     private void FieldInit()
     {
         // 리스트 생성
         _basicBulletList = new List<GameObject>();
         _subBulletList = new List<GameObject>();
-
+        _boomBulletList = new List<GameObject>();
         
         // 딕셔너리 생성
         _listDictionary = new Dictionary<EBulletType, List<GameObject>>()
         {
             { EBulletType.Basic, _basicBulletList },
             { EBulletType.Sub, _subBulletList },
+            { EBulletType.Boom, _boomBulletList },
         };
         
         _prefabDictionary = new Dictionary<EBulletType, GameObject>()
         {
             { EBulletType.Basic, _basicBulletPrefab},
             { EBulletType.Sub, _subBulletPrefab },
+            { EBulletType.Boom, _boomBulletPrefab },
         };
     }
 
@@ -96,6 +91,9 @@ public class PlayerBulletFactory : FactoryBase
         
         // 플레이어  미니 총알 오브젝트 풀 생성
         MakePool(_subBulletPrefab, _subBulletList, initPoolSize);
+        
+        // 플레이어 폭탄 오브젝트 풀 생성
+        MakePool(_boomBulletPrefab, _boomBulletList, initPoolSize);
         
     }
     
