@@ -4,12 +4,16 @@ using Input=UnityEngine.Input;
 
 public class InputController : MonoBehaviour
 {
+    [SerializeField] private FixedJoystick _joystick;
    public Vector2 MoveInput
     {
         get
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
+            /*float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");*/
+            
+            float h = _joystick.Horizontal;
+            float v = _joystick.Vertical;
             return new Vector2(h, v).normalized;
         }
     }
