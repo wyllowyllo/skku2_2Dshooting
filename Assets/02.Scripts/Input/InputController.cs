@@ -4,7 +4,7 @@ using Input=UnityEngine.Input;
 
 public class InputController : MonoBehaviour
 {
-    [SerializeField] private FixedJoystick _joyStick;
+    [SerializeField] private DynamicJoystick _joyStick;
 
     private bool _fireBtnPressed;
    public Vector2 MoveInput
