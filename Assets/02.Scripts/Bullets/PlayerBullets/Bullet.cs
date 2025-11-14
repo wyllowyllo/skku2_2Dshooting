@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 public enum EBulletType
 {
-    BT_NORMAL=1,
-    BT_MINI=2,
-    BT_S=3,
-    BT_CYCLON=4,
-    BT_MICRO=5
+    Basic = 0,
+    Sub = 1,
+    Cyclon = 2,
+    Micro = 4
 }
 public class Bullet : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        bulletSpeed = firstBulletSpeed;
+        Init();
     }
     private void Update()
     {
@@ -30,6 +30,10 @@ public class Bullet : MonoBehaviour
         
     }
 
+    private void Init()
+    {
+        bulletSpeed = firstBulletSpeed; ;
+    }
     protected virtual void BulletMove()
     {
         //방향을 구한다
@@ -45,6 +49,10 @@ public class Bullet : MonoBehaviour
         transform.position = newPosition;
 
     }
+    private void OnEnable()
+    {
+        Init();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -56,7 +64,7 @@ public class Bullet : MonoBehaviour
         if(enemy != null)
             enemy.Hit(bulletDamage);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     

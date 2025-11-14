@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3552593313958192560}
   - component: {fileID: 5445917213632289833}
   m_Layer: 0
-  m_Name: MiniBullet
+  m_Name: SubBullet
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770003648d0d27943b44473d5c7a3c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 0
+  bulletType: 1
   bulletDamage: 20
   bulletSpeed: 0
   firstBulletSpeed: 1

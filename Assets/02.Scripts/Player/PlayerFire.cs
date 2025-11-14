@@ -11,13 +11,7 @@ public class PlayerFire : MonoBehaviour
     //목표 : 스페이스바를 누르면 총알을 만들어서 발사하고 싶다
     [Header("공격 모드")]
     private AttackMode _attackMode = AttackMode.ATK_MANUAL;
-
-    //필요 속성
-    [Header("총알 프리펩")]
-    [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private GameObject _miniBulletPrefab;
-    [SerializeField] private GameObject _boomPrefab;
-
+    
     [Header("총구")]
     [SerializeField] private Transform _firePositionL;
     [SerializeField] private Transform _firePositionR;
@@ -78,10 +72,10 @@ public class PlayerFire : MonoBehaviour
     }
     private void Boom()
     {
-        if (!(_input.Boom) || _boomPrefab == null ) return;
+        if (!(_input.Boom)) return;
 
-        Vector2 boomPos = BoardBounds.Instance.BoardCenter;
-        Instantiate(_boomPrefab, boomPos, Quaternion.identity);
+        Vector3 boomPos = BoardBounds.Instance.BoardCenter;
+        PlayerBulletFactory.Instance.MakeBoom(boomPos);
     }
     public void FireRateUp(float increment)
     {
@@ -92,12 +86,11 @@ public class PlayerFire : MonoBehaviour
     private void MakeBullets()
     {
         //클래스 -> 객체(속성+기능) -> 메모리에 실제로 로드된 객체를 인스턴스라고 한다.
-        GameObject bulletObj_1=Instantiate(_bulletPrefab, _firePositionL.position, Quaternion.identity);
-        GameObject bulletObj_2 = Instantiate(_bulletPrefab, _firePositionR.position, Quaternion.identity);
-
-        GameObject miniBulletObj_1 = Instantiate(_miniBulletPrefab, _firePositionSubL.position, Quaternion.identity);
-        GameObject miniBulletObj_2 = Instantiate(_miniBulletPrefab, _firePositionSubR.position, Quaternion.identity);
-
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Basic, _firePositionL.position);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Basic, _firePositionR.position);
+        
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Sub, _firePositionSubL.position);
+        PlayerBulletFactory.Instance.MakeBullet(EBulletType.Sub, _firePositionSubR.position);
     }
 
     private void SwitchAtkMode()
