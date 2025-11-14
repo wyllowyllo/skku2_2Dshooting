@@ -19,11 +19,7 @@ public class Boom : MonoBehaviour
     private float _lifeCoolTime;
     private float _fxCoolTime;
 
-    private void Start()
-    {
-        _lifeCoolTime = 0f;
-        _fxCoolTime = 0f;
-    }
+    
     private void Update()
     {
         
@@ -32,7 +28,7 @@ public class Boom : MonoBehaviour
 
         if (_lifeCoolTime >= _existTime)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             return;
         }
         
@@ -52,6 +48,16 @@ public class Boom : MonoBehaviour
         Instantiate(_boomFXPrefab, fxPos, Quaternion.identity);
         
         _fxCoolTime = 0f;
+    }
+
+    private void Init()
+    {
+        _lifeCoolTime = 0f;
+        _fxCoolTime = 0f;
+    }
+    private void OnEnable()
+    {
+        Init();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
