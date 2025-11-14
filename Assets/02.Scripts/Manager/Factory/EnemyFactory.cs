@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFactory : MonoBehaviour
+public class EnemyFactory : FactoryBase
 {
     private static EnemyFactory _instance = null;
     
@@ -42,37 +42,12 @@ public class EnemyFactory : MonoBehaviour
         List<GameObject> targetList = _listDictionary[enemyType];
         GameObject targetPrefab = _prefabDictionary[enemyType];
         
-        enemyObj = GetIdleEnemy(targetPrefab, targetList, position);
+        enemyObj = GetIdleObject(targetPrefab, targetList, position);
 
         return enemyObj;
     }
     
-    private GameObject GetIdleEnemy(GameObject targetPrefab, List<GameObject> targetList, Vector3 position)
-    {
-        GameObject enemyObj = null;
-        
-        for (int i = 0; i < targetList.Count; i++)
-        {
-            if (targetList[i].activeInHierarchy) continue;
-            
-            //Debug.Log(_bulletList[i].name);
-            enemyObj = targetList[i];
-            enemyObj.transform.position = position;
-            enemyObj.SetActive(true);
-          
-            return enemyObj;
-        }
-
-        
-        //풀이 부족한 경우
-        int increment = Mathf.Max((int)(targetList.Count * _poolScaleFactor), 1);
-        
-        enemyObj = MakePool(targetPrefab, targetList, increment);
-        enemyObj.transform.position = position;
-        enemyObj.SetActive(true);
-      
-        return enemyObj;
-    }
+   
     
     private void FieldInit()
     {
@@ -104,17 +79,6 @@ public class EnemyFactory : MonoBehaviour
     }
     
     
-    private GameObject MakePool(GameObject targetPrefab, List<GameObject> targetList, int count)
-    {
-        
-        for (int i = 0; i < count; i++)
-        {
-            GameObject enemyObj = Instantiate(targetPrefab, transform);
-            enemyObj.SetActive(false);
-            targetList.Add(enemyObj);
-        }
-        
-        int lastIndex = targetList.Count - 1;
-        return targetList[lastIndex]; //풀의 마지막 인자 반환
-    }
+   
+    
 }
