@@ -17,6 +17,10 @@ public class EnemyFactory : MonoBehaviour
     
     public static EnemyFactory Instance => _instance;
     
+    private Dictionary<EEnemyType, List<GameObject>> _listDictionary;
+    private Dictionary<EEnemyType, GameObject> _prefabDictionary;
+
+    
     private void Awake()
     {
         if (_instance != null)
@@ -26,9 +30,7 @@ public class EnemyFactory : MonoBehaviour
         }
         _instance = this;
 
-        _straightEnemyList = new List<GameObject>();
-        _chasingEnemyList = new List<GameObject>();
-        
+        FieldInit();
         PoolInit();
         
     }
@@ -37,21 +39,10 @@ public class EnemyFactory : MonoBehaviour
     {
         GameObject enemyObj = null;
 
-        switch (enemyType)
-        {
-            case EEnemyType.Straight:
-                enemyObj = GetIdleEnemy(_straightEnemyPrefab, _straightEnemyList, position);
-                break;
-            case EEnemyType.Trace:
-                enemyObj = GetIdleEnemy(_chasingEnemyPrefab, _chasingEnemyList, position);
-                break;
-            
-            
-            
-            default:
-                enemyObj = GetIdleEnemy(_straightEnemyPrefab, _straightEnemyList, position);
-                break;
-        }
+        List<GameObject> targetList = _listDictionary[enemyType];
+        GameObject targetPrefab = _prefabDictionary[enemyType];
+        
+        enemyObj = GetIdleEnemy(targetPrefab, targetList, position);
 
         return enemyObj;
     }
@@ -83,6 +74,26 @@ public class EnemyFactory : MonoBehaviour
         return enemyObj;
     }
     
+    private void FieldInit()
+    {
+        // 리스트 생성
+        _straightEnemyList = new List<GameObject>();
+        _chasingEnemyList = new List<GameObject>();
+
+        
+        // 딕셔너리 생성
+        _listDictionary = new Dictionary<EEnemyType, List<GameObject>>()
+        {
+            { EEnemyType.Straight, _straightEnemyList },
+            { EEnemyType.Trace, _chasingEnemyList },
+        };
+        
+        _prefabDictionary = new Dictionary<EEnemyType, GameObject>()
+        {
+            { EEnemyType.Straight, _straightEnemyPrefab },
+            { EEnemyType.Trace, _chasingEnemyPrefab },
+        };
+    }
     private void PoolInit()
     {
         // 플레이어 기본 총알 오브젝트 풀 생성

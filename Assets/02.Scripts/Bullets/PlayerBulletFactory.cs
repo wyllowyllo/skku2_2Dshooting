@@ -17,6 +17,9 @@ public class PlayerBulletFactory : MonoBehaviour
     private List<GameObject> _basicBulletList;
     private List<GameObject> _subBulletList;
     public static PlayerBulletFactory Instance => _instance;
+
+    private Dictionary<EBulletType, List<GameObject>> _listDictionary;
+    private Dictionary<EBulletType, GameObject> _prefabDictionary;
     
     private void Awake()
     {
@@ -27,10 +30,9 @@ public class PlayerBulletFactory : MonoBehaviour
         }
         _instance = this;
 
-        
-        _basicBulletList = new List<GameObject>();
-        _subBulletList = new List<GameObject>();
-        
+
+
+        FieldInit();
         PoolInit();
     }
 
@@ -39,22 +41,11 @@ public class PlayerBulletFactory : MonoBehaviour
     {
         GameObject bulletObj = null;
 
-        switch (bulletType)
-        {
-            case EBulletType.Basic:
-                bulletObj = GetIdleBullet(_basicBulletPrefab, _basicBulletList, position);
-                break;
-            case EBulletType.Sub:
-                bulletObj = GetIdleBullet(_subBulletPrefab, _subBulletList, position);
-                break;
-            
-            
-            
-            default:
-                bulletObj = GetIdleBullet(_basicBulletPrefab, _basicBulletList, position);
-                break;
-        }
-
+        List<GameObject> targetList = _listDictionary[bulletType];
+        GameObject targetPrefab = _prefabDictionary[bulletType];
+        
+        bulletObj = GetIdleBullet(targetPrefab, targetList, position);
+        
         return bulletObj;
     }
 
@@ -87,6 +78,27 @@ public class PlayerBulletFactory : MonoBehaviour
     public GameObject MakeBoom(Vector3 position)
     {
         return null;
+    }
+
+    private void FieldInit()
+    {
+        // 리스트 생성
+        _basicBulletList = new List<GameObject>();
+        _subBulletList = new List<GameObject>();
+
+        
+        // 딕셔너리 생성
+        _listDictionary = new Dictionary<EBulletType, List<GameObject>>()
+        {
+            { EBulletType.Basic, _basicBulletList },
+            { EBulletType.Sub, _subBulletList },
+        };
+        
+        _prefabDictionary = new Dictionary<EBulletType, GameObject>()
+        {
+            { EBulletType.Basic, _basicBulletPrefab},
+            { EBulletType.Sub, _subBulletPrefab },
+        };
     }
 
     private void PoolInit()
