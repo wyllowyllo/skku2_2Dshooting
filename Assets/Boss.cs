@@ -6,10 +6,12 @@ using static UnityEngine.GraphicsBuffer;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private float _moveDuration = 1.5f;
+    [SerializeField] private float _skillCoolTime = 3f;
 
     private float _bossSizeFactor = 1.5f;
-
     private Vector3 _bossPosition;
+
+    private float _skillTimer = 0f;
     private void Awake()
     {
         Vector3 spawnPosition = transform.position;
@@ -22,6 +24,15 @@ public class Boss : MonoBehaviour
         StartCoroutine(Appear());
     }
 
+    private void Update()
+    {
+        _skillTimer += Time.deltaTime;
+        if (_skillTimer >= _skillCoolTime)
+        {
+
+            _skillTimer = 0f;
+        }
+    }
     private IEnumerator Appear()
     {
         float timer = 0f;
@@ -41,5 +52,10 @@ public class Boss : MonoBehaviour
 
         transform.position = targetPos;
         
+    }
+
+    private void CycloneShot()
+    {
+
     }
 }
