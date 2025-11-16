@@ -42,7 +42,7 @@ using UnityEngine;
         _boardRightX = _boardWidth / 2;
 
         _boardBottomY = -_boardHeight / 2;
-        _boardTopY = _boardBottomY + (_boardHeight / 2);
+        _boardTopY = _boardBottomY + (_boardHeight);
     }
 
     public Vector2 MoveClamp(Vector2 newPosition)
