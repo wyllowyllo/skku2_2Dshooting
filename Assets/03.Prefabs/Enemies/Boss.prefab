@@ -217,3 +217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e085a2fe815cc43bcd8c5186875971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveDuration: 1.5
+  _skillDuration: 5
+  _skillCoolTime: 3
+  _shotInterval: 0.5
+  _bulletCntForShot: 12
+  _bulletAngleOffset: 10
+  _bulletSpeed: 5
+  _bulletPrefab: {fileID: 1055228132616397757, guid: f81f2f8a2f12ae04aa77031eb5fcd2ba, type: 3}
