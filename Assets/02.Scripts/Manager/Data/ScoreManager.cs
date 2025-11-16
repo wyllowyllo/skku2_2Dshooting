@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -8,16 +9,23 @@ using UnityEngine.UI;
 /// </summary>
 public class ScoreManager : MonoBehaviour
 {
+    private UnityEvent _overBossTriggerScore;
+
     private static ScoreManager _instance = null;
+
+
     // 목표 : 적을 죽일 때마다 점수를 올리고, 현재 점수를 UI에 표시하고 싶다
-    
+
     // 필요 속성
     // - 현재 점수 UI (Text 컴포넌트)
     // 규칙 : UI요소는 항상 변수명 뒤에 UI 붙인다.
     // SerializeField : 필드를 유니티가 이해할 수 있게끔 직렬화 한다.
+    [Header("텍스트 UI")]
     [SerializeField] private Text _currentScoreTextUI;
     [SerializeField] private Text _bestScoreTextUI;
-    
+
+    [Header("보스 페이즈 진입 기준 점수")]
+    [SerializeField] private int _bossTriggerScore;
     // 텍스트 애니메이터
     private TextScaleAnimator _currentScoreAnimator;
     private TextScaleAnimator _bestScoreAnimator;
@@ -32,9 +40,11 @@ public class ScoreManager : MonoBehaviour
     private int _bestScore = 0;
     private const string ScoreKey = "Score";
 
+    private bool _isBossPhase = false;
     public static ScoreManager Instance => _instance;
-    
-    
+
+    public UnityEvent OverBossTriggerScore { get => _overBossTriggerScore; }
+
     private void Awake()
     {
         if (_instance != null)
@@ -46,6 +56,8 @@ public class ScoreManager : MonoBehaviour
         _instance = this;
         
         _saveModule = new SaveModule(ScoreKey);
+
+        _overBossTriggerScore = new UnityEvent();
     }
 
     private void Start()
@@ -68,18 +80,31 @@ public class ScoreManager : MonoBehaviour
        
         _currentScore += score;
         _currentScoreAnimator?.PlayScaleAnimation();
-        
+
+        // 최고점 갱신
         if (_bestScore < _currentScore)
         {
             _bestScore = _currentScore;
             _bestScoreAnimator?.PlayScaleAnimation();
         }
         
-        
+      
         Refresh();
         Save();
+
+        // 보스 페이즈 이벤트 호출
+        InvokeBossPhaseEvent();
+
     }
 
+    private void InvokeBossPhaseEvent()
+    {
+        if (_isBossPhase == false && _currentScore >= _bossTriggerScore)
+        {
+            _isBossPhase = true;
+            OverBossTriggerScore.Invoke();
+        }
+    }
     private void Refresh()
     {
         _currentScoreTextUI.text = $"현재 점수 : {_currentScore:n0}";

@@ -720,6 +720,7 @@ Transform:
   m_Children:
   - {fileID: 1709662135}
   - {fileID: 727870153}
+  - {fileID: 1998307956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632157497
@@ -847,6 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentScoreTextUI: {fileID: 1669243872}
   _bestScoreTextUI: {fileID: 1041336772}
+  _bossTriggerScore: 500
 --- !u!4 &762128162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5445535845429619388, guid: 99502a3adf03d7142b8b8f2c08f59d1f, type: 3}
@@ -1001,6 +1003,7 @@ MonoBehaviour:
   poolScaleFactor: 0.5
   _straightEnemyPrefab: {fileID: 1258407495704171720, guid: 3253d155ceb107c4696913bac03b0565, type: 3}
   _chasingEnemyPrefab: {fileID: 2071450668010134402, guid: fca50e809e8657942b6748dc447ea749, type: 3}
+  _bossPrefab: {fileID: 6152293052845590578, guid: 955c051e033e8394a93aa9cd6c494f88, type: 3}
   _initPoolSize: 1
   _poolScaleFactor: 0.5
 --- !u!4 &911018424 stripped
@@ -2132,7 +2135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998307954}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 6.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2140,7 +2143,7 @@ Transform:
   - {fileID: 1287849967}
   - {fileID: 2018874843}
   - {fileID: 1023331381}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 619878930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2018874842
 GameObject:
@@ -2519,7 +2522,6 @@ SceneRoots:
   - {fileID: 619878930}
   - {fileID: 1015422006}
   - {fileID: 1944548407}
-  - {fileID: 1998307956}
   - {fileID: 923832052599481678}
   - {fileID: 4860265572540433828}
   - {fileID: 362029909}
