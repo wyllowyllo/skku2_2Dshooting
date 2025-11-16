@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("스폰 포인트")]
     [SerializeField] private Transform[] _spawnPoints;
+    
 
     [Header("스폰 간격")]
     [SerializeField] private float _minSpawnInterval = 1f;
@@ -21,13 +22,28 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _traceEnemySpawnRate = 0.3f;
 
     private EnemyFactory _enemyFactory;
+    private ScoreManager _scoreManager;
+
     private float _timer = 0f;
     private int _spawnPointIdx = 0;
     private EEnemyType _spawnEnemyType;
 
+    [Header("보스 스폰 변수")]
+    private Vector3 _bossSpawnPoint;
+    private bool _isBossPhase;
+
+    private void Awake()
+    {
+        _bossSpawnPoint = transform.position;
+    }
     private void Start()
     {
         _enemyFactory = EnemyFactory.Instance;
+        _scoreManager = ScoreManager.Instance;
+
+        //이벤트 등록
+        _scoreManager?.OverBossTriggerScore.AddListener(EnterBossPhase);
+
         SetSpwanInterval();
     }
 
@@ -42,6 +58,17 @@ public class EnemySpawner : MonoBehaviour
             _timer = 0f;
         }
 
+    }
+    
+    public void EnterBossPhase()
+    {
+        SpawnBoss();
+    }
+
+    private void SpawnBoss()
+    {
+        _isBossPhase = true;
+        _enemyFactory.MakeBoss(_bossSpawnPoint);
     }
 
     private void RandomlySpawnSet()

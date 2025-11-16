@@ -11,7 +11,8 @@ public class EnemyFactory : FactoryBase
     [Header("적 프리펩")] 
     [SerializeField] private GameObject _straightEnemyPrefab;
     [SerializeField] private GameObject _chasingEnemyPrefab;
-    
+    [SerializeField] private GameObject _bossPrefab;
+
     [Header("풀링")]
     [SerializeField] private int _initPoolSize = 30;
     [SerializeField] private float _poolScaleFactor = 0.5f;
@@ -54,6 +55,11 @@ public class EnemyFactory : FactoryBase
         enemyObj = GetIdleObject(targetPrefab, targetList, position);
 
         return enemyObj;
+    }
+
+    public GameObject MakeBoss(Vector3 position)
+    {
+        return  Instantiate(_bossPrefab, position, Quaternion.identity, transform);
     }
     
    

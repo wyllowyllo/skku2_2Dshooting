@@ -7,6 +7,7 @@ public enum EEnemyType
     Straight = 0,
     Trace = 1,
     Eater = 2,
+    Boss = 3,
 }
 
 public class Enemy : MonoBehaviour
@@ -53,7 +54,7 @@ public class Enemy : MonoBehaviour
             
             Death();
             gameObject.SetActive(false);
-            _animator.SetTrigger("Reset");
+           
             return;
         }
         if(_animator!=null) _animator.SetTrigger("Hit");
